@@ -1,0 +1,10 @@
+a
+s
+d
+w
+space
+left
+down
+right
+up
+control_m
