@@ -10,13 +10,11 @@ ENTER = ['space', 'control_m']
 
 player = Player.new('Player_1', 'red', [3, 3])
 board  =  Board.new
-#board.spaces[[1, 1]].visual
 
 until false 
   location = player.move_space
-#  print location.class
-  board.change_current_loc_color(location)
+  board.highlight_space(location, player.prev_location)
   board.print_board
   puts
 end
-  
+

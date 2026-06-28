@@ -8,6 +8,7 @@ class Board
   attr_accessor :spaces, :white_space
 
   X_COL, Y_ROW = 8, 8
+  BOUNDS = [X_COL, Y_ROW]
 
   WHITE_SPACES_EVEN  = [2, 4, 6, 8]
   WHITE_SPACES_ODD = [1, 3, 5, 7]
@@ -18,7 +19,6 @@ class Board
     make_board
     print_board
   end
-
   def make_board
     Y_ROW.times do |y|
       y += 1
@@ -27,10 +27,15 @@ class Board
       X_COL.times do |x|
         x += 1
         if white_space.include?(x)
-          self.spaces[[x, y]] = Space.new(visual: '[' + '  '
-                                      .colorize(background: :white) + ']')
+          self.spaces[[x, y]] = Space.new(
+            visual: '  '.colorize(background: :white))
+#          self.spaces[[x, y]] = Space.new(visual: '[' + '  '
+#                                     .colorize(background: :white) + ']')
         else
-          self.spaces[[x, y]] = Space.new
+          self.spaces[[x, y]] = Space.new(
+            visual: '  '.colorize(background: :grey))
+#          self.spaces[[x, y]] = Space.new(visual: '[' + '  '
+#                                     .colorize(background: :grey) + ']')
         end
       end
     end
@@ -47,13 +52,22 @@ class Board
     end
   end
 
-  def change_current_loc_color(loc)
-    self.spaces[loc].visual = '[' + '  '.colorize(background: :green) + ']'
+  def highlight_space(loc, previous_space)
+    self.spaces[loc].visual = '  '.colorize(background: :green)
+    puts
+    print previous_space
+    puts
+    un_highlight_previous_space(previous_space)
+#    self.spaces[loc].visual = '[' + '  '.colorize(background: :green) + ']'
+  end
+
+
+  private
+  # Find the color of the space argument. Used inside 'change_current_loc_color'
+  # to change the highlight back to its original board color. 
+  def un_highlight_previous_space(space)
+   self.spaces[space].visual = spaces[space].color
   end
 
 end
-
-#board = Board.new
-#board.change_current_loc_color([2, 2])
-#board.print_board
 
