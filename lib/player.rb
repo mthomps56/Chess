@@ -4,7 +4,7 @@ require 'remedy'
 include Remedy
 
 class Player
-  attr_accessor :name, :color, :curr_location, :usr_input, :prev_location
+  attr_accessor :name, :color, :curr_location, :prev_location, :user_input
 
   RIGHT = [1, 0]
   LEFT  = [-1, 0]
@@ -17,14 +17,14 @@ class Player
     @name = name
     @color = color
     @curr_location = curr_location
-    @usr_input = Interaction.new
-    @previous_location = curr_location
+    @prev_location = curr_location
+    @user_input = Interaction.new
   end
 
   def move_space
     print "curr_location: #{curr_location}"
     self.prev_location = curr_location 
-    usr_input.loop do |key|
+    user_input.loop do |key|
       key = key.to_s
       self.curr_location = case key
       when 'a', 'left'
@@ -39,7 +39,8 @@ class Player
         puts "USE [a] [s] [d] [w] or the arrow keys"
         next
       end
-      return curr_location
+#      return curr_location
+      break
     end
   end
 

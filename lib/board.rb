@@ -19,6 +19,7 @@ class Board
     make_board
     print_board
   end
+
   def make_board
     Y_ROW.times do |y|
       y += 1
@@ -49,23 +50,19 @@ class Board
 
   def highlight_space(loc, previous_space)
     self.spaces[loc].visual = '  '.colorize(background: :green)
-    puts
-    print previous_space
+    puts "inside highlight_space"
+    #print previous_space
     puts
     un_highlight_previous_space(previous_space)
   end
 
   private
+
   # Find the color of the space argument. Used inside 'change_current_loc_color'
   # to change the highlight back to its original board color. 
   def un_highlight_previous_space(space)
    self.spaces[space].visual = spaces[space].color
   end
-
-  def check_bounds(location)
-    
-  end
-
 
 end
 

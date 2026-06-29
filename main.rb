@@ -14,17 +14,8 @@ board  = Board.new
 game   = Game.new 
 
 until false 
-  #game.check_bounds do
-  location = player.move_space
-  #  continue_flag = game.in_bounds?(location) ? true : false
-  #  game.curr_loction = player.prev if !continue_flag
-  #  puts "location: #{curr_location} && previous: #{player.prev_location}"
-  #  continue_flag
-  #end
-  board.highlight_space(location, player.prev_location)   
+  player.move_space
+  board.highlight_space(player.curr_location, player.prev_location)   
   board.print_board
   puts
 end
-puts; puts;
-puts "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
-puts
