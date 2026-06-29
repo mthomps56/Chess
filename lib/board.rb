@@ -23,19 +23,14 @@ class Board
     Y_ROW.times do |y|
       y += 1
       white_space = y.even? ? WHITE_SPACES_EVEN : WHITE_SPACES_ODD
-#      print white_space; puts
       X_COL.times do |x|
         x += 1
         if white_space.include?(x)
           self.spaces[[x, y]] = Space.new(
             visual: '  '.colorize(background: :white))
-#          self.spaces[[x, y]] = Space.new(visual: '[' + '  '
-#                                     .colorize(background: :white) + ']')
         else
           self.spaces[[x, y]] = Space.new(
             visual: '  '.colorize(background: :grey))
-#          self.spaces[[x, y]] = Space.new(visual: '[' + '  '
-#                                     .colorize(background: :grey) + ']')
         end
       end
     end
@@ -58,9 +53,7 @@ class Board
     print previous_space
     puts
     un_highlight_previous_space(previous_space)
-#    self.spaces[loc].visual = '[' + '  '.colorize(background: :green) + ']'
   end
-
 
   private
   # Find the color of the space argument. Used inside 'change_current_loc_color'
@@ -68,6 +61,11 @@ class Board
   def un_highlight_previous_space(space)
    self.spaces[space].visual = spaces[space].color
   end
+
+  def check_bounds(location)
+    
+  end
+
 
 end
 
