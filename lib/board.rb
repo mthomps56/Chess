@@ -49,9 +49,9 @@ class Board
     puts
   end
 
-  def highlight_space(loc, previous_space)
+  def highlight_space(loc, prev_location)
     self.spaces[loc].visual = '  '.colorize(background: :green)
-    un_highlight_previous_space(previous_space)
+    un_highlight_previous_space(prev_location)
   end
 
   private

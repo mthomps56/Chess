@@ -53,9 +53,13 @@ class Player
     bounds = in_bounds?(new_location) ? true : false
     puts bounds
     unless bounds
-      curr_location =  prev_location
+#      self.curr_location =  prev_location
+#      puts; puts "after 'unless bounds: curr=#{curr_location}, prev=#{prev_location}"
+      move_space
     else
+      self.prev_location = curr_location
       self.curr_location = new_location
+      puts "after else: prev_location=#{prev_location}, curr=#{curr_location}"
     end
   end
 
