@@ -46,13 +46,11 @@ class Board
         puts if x == X_COL
       end
     end
+    puts
   end
 
   def highlight_space(loc, previous_space)
     self.spaces[loc].visual = '  '.colorize(background: :green)
-    puts "inside highlight_space"
-    #print previous_space
-    puts
     un_highlight_previous_space(previous_space)
   end
 

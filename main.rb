@@ -17,5 +17,4 @@ until false
   player.move_space
   board.highlight_space(player.curr_location, player.prev_location)   
   board.print_board
-  puts
 end
