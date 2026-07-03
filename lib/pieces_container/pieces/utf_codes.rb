@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# UNICODE CHEST PIECES AS CONSTANTS
+# UNICODE CHESS PIECES AS CONSTANTS
 module ChessPieces
-  E = 'UTF-8')
+  E = 'UTF-8'
   
   # Player White Pieces
   W_KING   = 9812.chr(E)

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'piece'
+require_relative 'utf_codes'
 
 class King < Piece
-  attr_accessor
+  include ChessPieces
+  attr_accessor :mv, :p
 
-  KING = { 
+  MOVES = { 
       left_up: [-1, 1],    right_up: [1, 1],
     left_down: [-1, -1], right_down: [1, -1],
            up: [0, 1],         down: [0, -1]
@@ -13,6 +15,13 @@ class King < Piece
 
   def initialize(player, location)
     super(player, location)
+    @p  = player.eql?(1) ? ChessPieces::W_KING : ChessPieces::B_KING
+    @mv = King::MOVES
   end
 end
+
+#king = King.new(1, [3, 8])
+#print king.p
+#king.mv.each_value { |dir| print dir }
+    
 
