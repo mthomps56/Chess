@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'remedy'
-require_relative 'pcs_container'
 
 include Remedy
 
@@ -24,7 +23,6 @@ class Player
     @color = color
     @curr_location = curr_location
     @prev_location = curr_location
-    @pawn = Pawn.new
 
     @user_input = Interaction.new
   end

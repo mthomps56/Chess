@@ -49,6 +49,21 @@ class Board
     puts
   end
 
+  def show_piece_moves(piece, location)
+    legal_moves = []
+    piece.mv.each_value { |dir| legal_moves << proceed(location, dir) }
+    return legal_moves
+  end
+
+  def proceed(current, dir, moves = [])
+    current = [current[0] + dir[0], current[1] + dir[1]]
+    print spaces[current].piece.nil?
+    moves << current
+    print "\n   moves: #{moves}"
+#    proceed(current, dir) if spaces[current].piece.nil?
+
+  end
+
   def highlight_space(loc, prev_location)
     self.spaces[loc].visual = '  '.colorize(background: :green)
     un_highlight_previous_space(prev_location)
