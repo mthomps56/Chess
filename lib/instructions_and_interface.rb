@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-# This module contains the opening instructions for how to play
-# as well as legal moves for each of the six different chess
-# pieces. They are used for navigation as well as checks for
-# legality. 
+# This module contains the opening instructions for how to play and 
+# various messages that print conditionlly through out the game.
 
-# The arrays represnt x and y coordinate movements on the chess board.
 
 module Interface
 

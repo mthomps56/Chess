@@ -14,6 +14,7 @@ GEM
     racc (1.8.1)
     rainbow (3.1.1)
     regexp_parser (2.12.0)
+    remedy (0.5.0)
     rubocop (1.88.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -39,6 +40,7 @@ PLATFORMS
 
 DEPENDENCIES
   colorize (~> 1.1)
+  remedy (~> 0.5.0)
   rubocop (~> 1.88)
 
 CHECKSUMS
@@ -53,6 +55,7 @@ CHECKSUMS
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   regexp_parser (2.12.0) sha256=35a916a1d63190ab5c9009457136ae5f3c0c7512d60291d0d1378ba18ce08ebb
+  remedy (0.5.0) sha256=18367d80ed029b97e6137d3b8b071191cdec9b2872da423c562822b8b53c791d
   rubocop (1.88.0) sha256=e420ddf1662d0ef34bc8a2910ac4b396a7ddda0b51a708264405241734b08e0b
   rubocop-ast (1.49.1) sha256=4412f3ee70f6fe4546cc489548e0f6fcf76cafcfa80fa03af67098ffed755035
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33

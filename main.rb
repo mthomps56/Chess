@@ -25,3 +25,4 @@ bishop = Bishop.new(1, [3, 3])
 
 locations = board.show_piece_moves(bishop, bishop.location)
 print locations
+

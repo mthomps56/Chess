@@ -50,18 +50,26 @@ class Board
   end
 
   def show_piece_moves(piece, location)
-    legal_moves = []
-    piece.mv.each_value { |dir| legal_moves << proceed(location, dir) }
+    legal_moves = make_mv_hash(piece) 
+    piece.mv.each do |name, dir| 
+      legal_moves[name] = proceed(location, dir) 
+    end
     return legal_moves
+  end
+
+  def make_mv_hash(piece)
+    legal_moves = {}
+    piece.mv.each_key { |key| legal_moves[key] = [] }
+    legal_moves
   end
 
   def proceed(current, dir, moves = [])
     current = [current[0] + dir[0], current[1] + dir[1]]
-    print spaces[current].piece.nil?
-    moves << current
-    print "\n   moves: #{moves}"
-#    proceed(current, dir) if spaces[current].piece.nil?
-
+    return moves if spaces.dig(current).nil? 
+    if spaces.dig(current).piece.nil?
+      print "moves: #{moves} \n"
+      proceed(current, dir, moves << current) 
+    end
   end
 
   def highlight_space(loc, prev_location)
@@ -74,7 +82,7 @@ class Board
   # Find the color of the space argument. Used inside 'change_current_loc_color'
   # to change the highlight back to its original board color. 
   def un_highlight_previous_space(space)
-   self.spaces[space].visual = spaces[space].color
+    self.spaces[space].visual = spaces[space].color
   end
 
 end
