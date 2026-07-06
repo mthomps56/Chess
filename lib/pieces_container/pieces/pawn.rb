@@ -5,21 +5,29 @@ require_relative 'utf_codes'
 
 class Pawn < Piece
   include ChessPieces
-  attr_accessor :mv, :p
+  attr_accessor :mv, :p, :move_count, :check_rules
 
   MOVES = {
-    first_move_only:  [2, 0], after_first_move: [1, 0], 
-      diag_take_left: [-1, 1], diag_take_right: [1, 1]
+    first_move: [2, 0], move: [1, 0], 
+      take_left: [-1, 1], take_right: [1, 1]
   }
 
   def initialize(player, location)
     super(player, location)
+    @move_count = 0
     @p  = player.eql?(1) ? ChessPieces::W_PAWN : ChessPieces::B_PAWN
     @mv = Pawn::MOVES
+    @check_rules = Proc.new { self.mv.delete(:first_move) if move_count > 0 }
   end
 end
+
+
+  #  up_left  = [spaces[location][0] + mv[:take_left[0], 
+  #              spaces[location][1] + mv[:take_left[1]]
+
+  #  up_right = [spaces[location][0] + mv[:take_right[0], 
+  #              spaces[location][1] + mv[:take_right[1]]
 
 #pawn = Pawn.new(1 , [3, 8])
 #print pawn.p
 #pawn.mv.each_value { |dir| print dir }
-

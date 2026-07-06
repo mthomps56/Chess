@@ -49,27 +49,40 @@ class Board
     puts
   end
 
-  def show_piece_moves(piece, location)
+  # Iterate through each direction and get all possible available movements
+  # for a piece.
+  def get_piece_moves(piece, location, piece_checks = nil)
+    one_step_pieces = ['Pawn', 'King', 'Knight']
+    piece_checks.call(spaces) unless piece_checks.nil?
     legal_moves = make_mv_hash(piece) 
-    piece.mv.each do |name, dir| 
-      legal_moves[name] = proceed(location, dir) 
+    piece.mv.each do |name, dir|
+      legal_moves[name] = one_step_pieces.include?(piece.class.name) ?
+        take_one_step(location, dir) : proceed(location, dir)
+#        legal_moves[name] = proceed(location, dir) 
     end
     return legal_moves
   end
 
+  # Create a new Hash with the same keys as 'mv' with an empty array for each.
   def make_mv_hash(piece)
     legal_moves = {}
     piece.mv.each_key { |key| legal_moves[key] = [] }
     legal_moves
   end
 
+  # Take the current iteration's direction 'dir' as far as allowed. 
   def proceed(current, dir, moves = [])
-    current = [current[0] + dir[0], current[1] + dir[1]]
-    return moves if spaces.dig(current).nil? 
-    if spaces.dig(current).piece.nil?
+    current = [current[0] + dir[0], current[1] + dir[1]] # Get next direction.
+    return moves if spaces.dig(current).nil? # Is the next move out of bounds?
+    if spaces.dig(current).piece.nil?            # Is the next space occupied?
       print "moves: #{moves} \n"
-      proceed(current, dir, moves << current) 
+      proceed(current, dir, moves << current)   # Add space, try next in line.
     end
+  end
+
+  # Get possible locations for pieces that can only take one step a turn.
+  def take_one_step(current, dir, moves = [])
+    moves << [current[0] + dir[0], current[1] + dir[1]]
   end
 
   def highlight_space(loc, prev_location)

@@ -6,6 +6,7 @@ require_relative './lib/player'
 require_relative './lib/board'
 require_relative './lib/game'
 require_relative './lib/pieces_container/pieces/bishop'
+require_relative './lib/pieces_container/pieces/pawn'
 
 ENTER = ['space', 'control_m']
 
@@ -14,6 +15,7 @@ player = Player.new('Player_1', 'red', [3, 3])
 board  = Board.new
 game   = Game.new 
 bishop = Bishop.new(1, [3, 3])
+pawn   = Pawn.new(1, [2, 2])
 
 #until false 
 #  puts player.move_space
@@ -23,6 +25,6 @@ bishop = Bishop.new(1, [3, 3])
 #  player.valid_move?
 #end
 
-locations = board.show_piece_moves(bishop, bishop.location)
+locations = board.get_piece_moves(bishop, bishop.location) #pawn.check_rules)
 print locations
 
