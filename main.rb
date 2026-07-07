@@ -17,14 +17,14 @@ game   = Game.new
 bishop = Bishop.new(1, [3, 3])
 pawn   = Pawn.new(1, [2, 2])
 
-#until false 
-#  puts player.move_space
-#  board.highlight_space(player.curr_location, player.prev_location)   
-#  board.print_board
-#  puts
+until false 
+  puts player.move_space
+  board.highlight_space(player.curr_location, player.prev_location)   
+  board.print_board
+  puts
 #  player.valid_move?
-#end
+end
 
-locations = board.get_piece_moves(bishop, bishop.location) #pawn.check_rules)
-print locations
+#locations = board.get_piece_moves(bishop, bishop.location) #pawn.check_rules)
+#print locations
 

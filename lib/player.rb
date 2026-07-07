@@ -68,7 +68,7 @@ class Player
     valid_x && valid_y ? (return true) : (return false)
   end
 
-  def valid_move?
-    pawn.mv.each_value { |loc| puts loc }
-  end
+#  def valid_move?
+#    pawn.mv.each_value { |loc| puts loc }
+#  end
 end
