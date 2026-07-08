@@ -20,8 +20,3 @@ class King < Piece
   end
 end
 
-#king = King.new(1, [3, 8])
-#print king.p
-#king.mv.each_value { |dir| print dir }
-    
-

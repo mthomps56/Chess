@@ -18,6 +18,3 @@ class Rook < Piece
   end
 end
 
-rook = Rook.new(1, [3, 8])
-print rook.p
-rook.mv.each_value { |dir| print dir }

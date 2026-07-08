@@ -21,13 +21,3 @@ class Pawn < Piece
   end
 end
 
-
-  #  up_left  = [spaces[location][0] + mv[:take_left[0], 
-  #              spaces[location][1] + mv[:take_left[1]]
-
-  #  up_right = [spaces[location][0] + mv[:take_right[0], 
-  #              spaces[location][1] + mv[:take_right[1]]
-
-#pawn = Pawn.new(1 , [3, 8])
-#print pawn.p
-#pawn.mv.each_value { |dir| print dir }

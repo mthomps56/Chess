@@ -21,7 +21,3 @@ class Knight < Piece
   end
 end
 
-knight = Knight.new(1, [3, 8])
-print knight.p
-knight.mv.each_value { |dir| print dir }
-
