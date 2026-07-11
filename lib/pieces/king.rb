@@ -13,8 +13,8 @@ class King < Piece
            up: [0, 1],         down: [0, -1]
   }
 
-  def initialize(player, location)
-    super(player, location)
+  def initialize(player)
+    super(player)
     @p  = player.eql?(1) ? ChessPieces::W_KING : ChessPieces::B_KING
     @mv = King::MOVES
   end

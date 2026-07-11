@@ -11,8 +11,8 @@ class Rook < Piece
     left: [-1, 0], right: [1, 0], up: [0, 1], down: [0, -1]
   }
 
-  def initialize(player, location)
-    super(player, location)
+  def initialize(player)
+    super(player)
     @p = player.eql?(1) ? ChessPieces::W_ROOK : B_ROOK
     @mv = Rook::MOVES
   end

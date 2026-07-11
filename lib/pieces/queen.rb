@@ -14,8 +14,8 @@ class Queen < Piece
            up: [0, 1],         down: [0, -1],
   }
 
-  def initialize(player, location)
-    super(player, location)
+  def initialize(player)
+    super(player)
     @p  = player.eql?(1) ? ChessPieces::W_QUEEN : ChessPieces::B_QUEEN
     @mv = Queen::MOVES
   end

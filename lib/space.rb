@@ -6,7 +6,7 @@ require 'colorize'
 class Space
   attr_accessor :color, :player, :piece, :visual
 
-  def initialize(player = nil, piece = nil, visual: '  ')
+  def initialize(player = nil, piece = nil, visual: " #{piece.p} ")
     @player = player
     @piece  = piece
     @visual = visual

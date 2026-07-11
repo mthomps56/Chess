@@ -12,8 +12,8 @@ class Pawn < Piece
       take_left: [-1, 1], take_right: [1, 1]
   }
 
-  def initialize(player, location)
-    super(player, location)
+  def initialize(player)
+    super(player)
     @move_count = 0
     @p  = player.eql?(1) ? ChessPieces::W_PAWN : ChessPieces::B_PAWN
     @mv = Pawn::MOVES

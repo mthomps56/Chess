@@ -5,26 +5,24 @@ require 'pry-byebug'
 require_relative './lib/player'
 require_relative './lib/board'
 require_relative './lib/game'
-require_relative './lib/pieces_container/pieces/bishop'
-require_relative './lib/pieces_container/pieces/pawn'
+require_relative './lib/pieces/bishop'
+require_relative './lib/pieces/pawn'
 
 ENTER = ['space', 'control_m']
 
 
 player = Player.new('Player_1', 'red', [3, 3])
-board  = Board.new
-game   = Game.new 
-bishop = Bishop.new(1, [3, 3])
-pawn   = Pawn.new(1, [2, 2])
+game   = Game.new
+bishop = Bishop.new(1)
+pawn   = Pawn.new(1, )
+
+fen_string = game.initiate_choice('./lib/fen/saves/new_game.fen')
+board  = Board.new(fen_string, game.start_game.load)
 
 until false 
   puts player.move_space
   board.highlight_space(player.curr_location, player.prev_location)   
   board.print_board
   puts
-#  player.valid_move?
 end
-
-#locations = board.get_piece_moves(bishop, bishop.location) #pawn.check_rules)
-#print locations
 

@@ -13,14 +13,14 @@ class Board
   WHITE_SPACES_EVEN  = [2, 4, 6, 8]
   WHITE_SPACES_ODD = [1, 3, 5, 7]
 
-  def initialize
+  def initialize(fen_string, loader)
     @spaces = {}
     @white_space = '[' + '  '.colorize(:white) + ']'
-    make_board
+    make_board(fen_string, loader)
     print_board
   end
 
-  def make_board
+  def make_board(fen_string, loader)
     Y_ROW.times do |y|
       y += 1
       white_space = y.even? ? WHITE_SPACES_EVEN : WHITE_SPACES_ODD
@@ -28,12 +28,13 @@ class Board
         x += 1
         if white_space.include?(x)
           self.spaces[[x, y]] = Space.new(
-            visual: '  '.colorize(background: :white))
+            visual: "  ".colorize(background: :white))
         else
           self.spaces[[x, y]] = Space.new(
-            visual: '  '.colorize(background: :grey))
+            visual: "  ".colorize(background: :grey))
         end
-      end
+        loader.call(spaces[[x, y]], x, fen_string)
+      end 
     end
   end
 

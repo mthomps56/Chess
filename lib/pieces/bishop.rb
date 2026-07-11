@@ -12,9 +12,9 @@ class Bishop < Piece
       down_left: [-1, -1], down_right: [1, -1]
   }
 
-  def initialize(player, location)
-    super(player, location)
-    @p  = player.eql?(1) ? ChessPieces::W_BISHOP : ChessPiece::B_BISHOP
+  def initialize(player)
+    super(player)
+    @p  = player.eql?(1) ? ChessPieces::W_BISHOP : ChessPieces::B_BISHOP
     @mv = Bishop::MOVES
   end
 end

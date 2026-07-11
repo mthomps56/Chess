@@ -14,8 +14,8 @@ class Knight < Piece
     right_down: [2, -1],  down_right: [1, -2]
   }
 
-  def initialize(player, location)
-    super(player, location)
+  def initialize(player)
+    super(player)
     @p  = player.eql?(1) ? ChessPieces::W_KNIGHT : ChessPieces::B_KNIGHT
     @mv = Knight::MOVES
   end

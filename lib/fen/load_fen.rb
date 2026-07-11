@@ -1,31 +1,55 @@
 # frozen_string_literal: true
 
-class module
+require_relative '../pieces/pawn.rb'
+require_relative '../pieces/rook.rb'
+require_relative '../pieces/king.rb'
+require_relative '../pieces/queen.rb'
+require_relative '../pieces/knight.rb'
+require_relative '../pieces/bishop.rb'
 
-  def make_space_content(board, location)
-    case board.spaces.symbol
-    when 'P' then Pawn.new(1, [location]) # Player 1
-    when 'p' then Pawn.new(2, [location]) # player 2
+class LoadFen
+  attr_accessor :load
 
-    when 'R' then Rook.new(1, [location]) # Player 1
-    when 'r' then Rook.new(2, [location]) # Player 2
-
-    when 'K' then King.new(1, [location]) # Player 1
-    when 'k' then King.new(1, [location]) # Player 2
-
-    when 'Q'  then Queen.new(1, [location]) # Player 1
-    when 'q'  then Queen.new(1, [location]) # Player 2
-
-    when 'B'  then Bishop.new(1, [location]) # Player 1
-    when 'b'  then Bishop.new(2, [location]) # Player 2
-
-    when 'KN' then Knight.new(1, [location]) # Player 1
-    when 'kn' then Knight.new(2, [location]) # Player 2
-
-    when nil  then count_consecutive_empty_spaces(board, location)
+  def initialize
+    @load = Proc.new do |space, x, fen_string| 
+      space.piece = get_space_content(fen_string[x])
+      space.visual = " #{space.piece}"
     end
+  end
+
+  
+  def open_save(path)
+    file = File.open(path, 'r')
+  end
+
+  def get_fen_string(file)
+    fen_string = file.readline
+  end
+
+  def get_space_content(fen_char)
+    space_info = case fen_char 
+    when 'P' then Pawn.new(1) # Player 1
+    when 'p' then Pawn.new(2) # player 2
+
+    when 'R' then Rook.new(1) # Player 1
+    when 'r' then Rook.new(2) # Player 2
+
+    when 'K' then King.new(1) # Player 1
+    when 'k' then King.new(2) # Player 2
+
+    when 'Q'  then Queen.new(1) # Player 1
+    when 'q'  then Queen.new(2) # Player 2
+
+    when 'B'  then Bishop.new(1) # Player 1
+    when 'b'  then Bishop.new(2) # Player 2
+
+    when 'N' then Knight.new(1) # Player 1
+    when 'n' then Knight.new(2) # Player 2
+
+    when nil  then count_consecutive_empty_spaces(board)
+    end
+    space_info
   end
 
 end
 
-  
