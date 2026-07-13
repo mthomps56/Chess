@@ -5,7 +5,7 @@ require_relative 'utf_codes'
 
 class Bishop < Piece
   include ChessPieces
-  attr_accessor :mv, :p
+  attr_accessor :mv, :p, :name, :owner
 
   MOVES = {
         up_left: [-1, 1],    up_right: [1, 1], 
@@ -14,7 +14,9 @@ class Bishop < Piece
 
   def initialize(player)
     super(player)
-    @p  = player.eql?(1) ? ChessPieces::W_BISHOP : ChessPieces::B_BISHOP
+    @name = self.class.name
+    @owner = player.eql?(1) ? 1 : 2
+    @v  = player.eql?(1) ? ChessPieces::W_BISHOP : ChessPieces::B_BISHOP
     @mv = Bishop::MOVES
   end
 end

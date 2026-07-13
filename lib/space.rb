@@ -16,8 +16,9 @@ class Space
     @color = visual
   end
 
-  def take_space(player)
-    self.player = player.name
-    self.piece  = player.piece
+  def take_space(piece)
+    self.player = piece.owner
+    self.piece  = piece.class.name 
+    self.visual = " #{piece.v}".colorize(background: background)
   end
 end

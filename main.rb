@@ -13,10 +13,8 @@ ENTER = ['space', 'control_m']
 
 player = Player.new('Player_1', 'red', [3, 3])
 game   = Game.new
-bishop = Bishop.new(1)
-pawn   = Pawn.new(1, )
 
-fen_string = game.initiate_choice('./lib/fen/saves/new_game.fen')
+fen_string = game.initiate_choice('./lib/fen/saves/new_game.fen').chomp
 board  = Board.new(fen_string, game.start_game.load)
 
 until false 

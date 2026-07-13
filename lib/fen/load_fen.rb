@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry-byebug'
 require_relative '../pieces/pawn.rb'
 require_relative '../pieces/rook.rb'
 require_relative '../pieces/king.rb'
@@ -9,14 +9,15 @@ require_relative '../pieces/bishop.rb'
 
 class LoadFen
   attr_accessor :load
-
   def initialize
     @load = Proc.new do |space, x, fen_string| 
-      space.piece = get_space_content(fen_string[x])
-      space.visual = " #{space.piece}"
+#      space.piece = get_space_content(fen_string[x])
+#      puts "space.piece: #{space.piece}"
+#      space.visual = " #{space.piece}"
+#      puts "space.visual: #{space.visual}"
+      space.take_space(space)
     end
   end
-
   
   def open_save(path)
     file = File.open(path, 'r')
