@@ -27,13 +27,16 @@ class Board
       white_space = y.even? ? WHITE_SPACES_EVEN : WHITE_SPACES_ODD
       X_COL.times do |x|
         x += 1
-        if white_space.include?(x)
-          self.spaces[[x, y]] = Space.new(
-            visual: "  ".colorize(background: :white))
-        else
-          self.spaces[[x, y]] = Space.new(
-            visual: "  ".colorize(background: :grey))
-        end
+        background = white_space.include?(x) ? :white : :grey
+        self.spaces[[x, y]] = Space.new()
+        loader.call(spaces[[x, y]], background, x, fen_string)
+#        if white_space.include?(x)
+#          self.spaces[[x, y]] = Space.new()
+#            visual: "  ".colorize(background: :white))
+#        else
+#          self.spaces[[x, y]] = Space.new()
+#            visual: "  ".colorize(background: :grey))
+#        end
 #        loader.call(spaces[[x, y]], x, fen_string)
       end 
     end

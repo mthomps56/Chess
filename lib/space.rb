@@ -6,7 +6,7 @@ require 'colorize'
 class Space
   attr_accessor :color, :player, :piece, :visual
 
-  def initialize(player = nil, piece = nil, visual: " #{piece.p} ")
+  def initialize(player = nil, piece = nil, visual = nil )
     @player = player
     @piece  = piece
     @visual = visual
@@ -16,9 +16,9 @@ class Space
     @color = visual
   end
 
-  def take_space(piece)
-    self.player = piece.owner
+  def take_space(piece, background)
+    self.player = piece.player
     self.piece  = piece.class.name 
-    self.visual = " #{piece.v}".colorize(background: background)
+    self.visual = "dfsdfsdf".colorize(background: background)
   end
 end

@@ -10,12 +10,14 @@ require_relative '../pieces/bishop.rb'
 class LoadFen
   attr_accessor :load
   def initialize
-    @load = Proc.new do |space, x, fen_string| 
-#      space.piece = get_space_content(fen_string[x])
+    @load = Proc.new do |space, background, x, fen_string| 
+      piece = get_space_content(fen_string[x])
 #      puts "space.piece: #{space.piece}"
 #      space.visual = " #{space.piece}"
 #      puts "space.visual: #{space.visual}"
-      space.take_space(space)
+      puts fen_string[x]
+      space.take_space(piece, background) if piece.class.eql?(String)  
+      print space.visual
     end
   end
   
@@ -47,7 +49,6 @@ class LoadFen
     when 'N' then Knight.new(1) # Player 1
     when 'n' then Knight.new(2) # Player 2
 
-    when nil  then count_consecutive_empty_spaces(board)
     end
     space_info
   end

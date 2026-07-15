@@ -5,7 +5,7 @@ require_relative 'utf_codes'
 
 class Bishop < Piece
   include ChessPieces
-  attr_accessor :mv, :p, :name, :owner
+  attr_accessor :mv, :v, :name, :owner
 
   MOVES = {
         up_left: [-1, 1],    up_right: [1, 1], 
