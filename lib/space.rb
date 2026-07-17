@@ -4,12 +4,11 @@ require 'colorize'
 
 # The Space class will represent each space on the chess board. 
 class Space
-  attr_accessor :color, :player, :piece, :visual
+  attr_accessor :color, :piece, :visual
 
-  def initialize(player = nil, piece = nil, visual = nil )
-    @player = player
+  def initialize(visual = nil, piece = nil)
     @piece  = piece
-    @visual = visual
+    @visual = visual 
 
     # This is the defualt color for the space. When it's not highlighted 
     # this attribute is used to change visual back to it's default.
@@ -17,8 +16,7 @@ class Space
   end
 
   def take_space(piece, background)
-    self.player = piece.player
     self.piece  = piece.class.name 
-    self.visual = "dfsdfsdf".colorize(background: background)
+    self.visual = " sdfsadf ".colorize(background: background)
   end
 end

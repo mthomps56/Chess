@@ -9,13 +9,10 @@ require_relative './lib/pieces/bishop'
 require_relative './lib/pieces/pawn'
 
 ENTER = ['space', 'control_m']
-
-
-player = Player.new('Player_1', 'red', [3, 3])
-game   = Game.new
-
-fen_string = game.initiate_choice('./lib/fen/saves/new_game.fen').chomp
-board  = Board.new(fen_string, game.start_game.load)
+player = Player.new
+board  = Board.new
+puts "hey"
+puts board.spaces[[1, 1]].class.name
 
 until false 
   puts player.move_space

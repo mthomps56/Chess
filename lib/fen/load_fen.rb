@@ -10,28 +10,36 @@ require_relative '../pieces/bishop.rb'
 class LoadFen
   attr_accessor :load
   def initialize
-    @load = Proc.new do |space, x, fen_string| 
-      space.piece = get_space_content(fen_string[x])
-      puts "space.piece: #{space.piece}"
-      space.visual = " #{space.piece}"
-      puts "space.visual: #{space.visual}"
+    @load = Proc.new do |space, x, y| 
+
     end
   end
 
+#  def iterate_fen_strings(fen_array)
+#    fen_array.each_char do |char|
+      
+      
   def process_fen_data(path)
     file = open_save(path)
     fen_string = get_fen_string(file)
     split_string(fen_string)
   end
   
+  # Called in 'process_fen_data'.
+  # Opens a saved game formatted in FEN.
   def open_save(path)
     file = File.open(path, 'r')
   end
-
+  
+  # Called in 'process_fen_data'.
+  # Reads the Fen string in to a variable from a save file.
   def get_fen_string(file)
     fen_string = file.readline
   end
-
+  
+  # Called in 'process_fen_data'.
+  # Sperates the Fen string in to an array of Strings, one
+  # string for every row on the x axis
   def split_string(fen_string)
     fen_rows = []
     fen_string.each_line(line_sep = '/', chomp: true) do |line| 
@@ -66,6 +74,6 @@ class LoadFen
   end
 
 end
-loadfen = LoadFen.new
-fen_array = loadfen.process_fen_data('./lib/fen/saves/new_game.fen')
-puts fen_array
+#loadfen = LoadFen.new
+#fen_array = loadfen.process_fen_data('./lib/fen/saves/new_game.fen')
+#puts fen_array

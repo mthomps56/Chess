@@ -21,6 +21,7 @@ class Player
   def initialize(name = nil, color = nil, curr_location = [3, 3])
     @name = name
     @color = color
+    @pieces = {}
     @curr_location = curr_location
     @prev_location = curr_location
 
