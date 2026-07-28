@@ -1,22 +1,18 @@
 # frozen_string_literal: true
+require_relative './pieces/utf_codes.rb'
+#require_relative './pieces/
 
-require 'colorize'
 
-# The Space class will represent each space on the chess board. 
 class Space
-  attr_accessor :color, :piece, :visual
+  include ChessPieces
 
-  def initialize(visual = nil, piece = nil)
-    @piece  = piece
-    @visual = visual 
+  attr_accessor :piece, :color, :symbol
 
-    # This is the defualt color for the space. When it's not highlighted 
-    # this attribute is used to change visual back to it's default.
-    @color = visual
+  def initialize(piece)
+    @symbol = "  "
   end
 
-  def take_space(piece, background)
-    self.piece  = piece.class.name 
-    self.visual = " sdfsadf ".colorize(background: background)
+  def print_space
+    print symbol
   end
 end

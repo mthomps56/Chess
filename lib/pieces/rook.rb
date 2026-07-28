@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'piece'
-require_relative 'utf_codes'
+require_relative 'pieces'
+require_relative '../moves'
 
 class Rook < Piece
-  include ChessPieces
-  attr_accessor :mv, :v, :name, :owner
+  include Moves
+  attr_accessor :moves
 
-  MOVES = {
-    left: [-1, 0], right: [1, 0], up: [0, 1], down: [0, -1]
-  }
-
-  def initialize(player)
-    super(player)
-    @name = self.class.name
-    @owner = player.eql?(1) ? 1 : 2
-    @p = player.eql?(1) ? ChessPieces::W_ROOK : B_ROOK
-    @mv = Rook::MOVES
+  def initialize
+    @moves = ROOK
   end
 end
-
