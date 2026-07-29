@@ -14,7 +14,7 @@ class Board
     print_board
   end
 
-  def make_board
+  def make_board(fen)
     Y_COL.each do |y|
       white_space = y.even? ? WHITE_SPACES_EVEN : WHITE_SPACES_ODD
       X_ROW.each do |x|
