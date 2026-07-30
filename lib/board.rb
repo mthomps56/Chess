@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'colorize'
 require_relative 'space'
 
@@ -8,18 +9,18 @@ class Board
   WHITE_SPACES_ODD  = [1, 3, 5, 7] #, GREY_SPACES_EVEN = [2, 4, 6, 8]
   attr_accessor :spaces
 
-  def initialize
+  def initialize(save)
     @spaces = {}
-    make_board
+    make_board(save)
     print_board
   end
 
-  def make_board(fen)
+  def make_board(save)
     Y_COL.each do |y|
       white_space = y.even? ? WHITE_SPACES_EVEN : WHITE_SPACES_ODD
       X_ROW.each do |x|
         color = white_space.include?(x) ? :grey : :white
-        spaces[[x, y]] = Space.new("  ".colorize(background: color))
+        spaces[[x, y]] = Space.new(spaces[[x, y]].symbol.colorize(background: color))
       end
     end
   end
@@ -35,4 +36,3 @@ class Board
 
 end
 
-b = Board.new

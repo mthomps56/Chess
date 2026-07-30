@@ -8,7 +8,7 @@ class Space
 
   attr_accessor :piece, :symbol
 
-  def initialize(piece = nil, symbol = 'xx')
+  def initialize(piece = nil, symbol = '  ')
     @symbol = symbol
     @piece = piece
   end
@@ -17,5 +17,12 @@ class Space
     print piece
   end
 
-#  def get_symbol_info(
+  def check_symbol(piece)
+    unless piece.nil?
+      self.symbol = " #{piece}"
+    else
+      self.symbol = '  '
+    end
+  end
+
 end

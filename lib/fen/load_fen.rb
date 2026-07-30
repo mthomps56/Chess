@@ -1,4 +1,4 @@
-j frozen_string_literal: true
+# frozen_string_literal: true
 
 # Load the pieces for a new game or for an unfinished saved game.
 
@@ -24,11 +24,4 @@ class FenLoad
     @fen_array
   end
 end
-loader = FenLoad.new('./saves/new_game.fen')
 
-puts loader.get_fen
-
-
-
-
-  

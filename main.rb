@@ -1,23 +1,12 @@
-require 'pry-byebug'
-
 # frozen_string_literal: true
-
-require_relative './lib/player'
+require 'pry-byebug'
+require_relative './lib/fen/load_fen'
 require_relative './lib/board'
-require_relative './lib/game'
-require_relative './lib/pieces/bishop'
-require_relative './lib/pieces/pawn'
+require_relative './lib/instructions'
+require_relative './lib/board'
+require_relative './lib/space'
 
-ENTER = ['space', 'control_m']
-player = Player.new
-board  = Board.new
-puts "hey"
-puts board.spaces[[1, 1]].class.name
+binding.pry
 
-until false 
-  puts player.move_space
-  board.highlight_space(player.curr_location, player.prev_location)   
-  board.print_board
-  puts
-end
-
+loader = FenLoad.new('./lib/fen/saves/new_game.fen')
+b = Board.new(loader.get_fen)
