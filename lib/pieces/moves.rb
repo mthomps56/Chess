@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# This module holds the allowed moves for every piece on the chess board.
-# Upon an instantiation of the 'Piece' class that pieces move set is loaded.
-# In to @moves attribute.
-
+# Holds the allowed moves for every piece on the chess board. Upon 
+# an instantiation of the 'Piece' class that pieces move set is loaded
+# in to the @moves attribute.
 
 module Moves
 
@@ -42,8 +41,9 @@ MOVES = {
       diag_take_left: [-1, 1], diag_take_right: [1, 1]
   }
 }  
-  def find_moves(type)
-    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
-  end
 end
+
+#  def find_moves(type)
+#    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
+#  end
 

@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 require_relative 'moves'
 require_relative 'utf_codes'
+
 class Piece
+
   include Moves
   include ChessPieces
 
   attr_accessor :type, :sym, :moves, :owner, :location, :active
+
   LOW, HIGH = 1, 8
   
-  def initialize(type, owner, location)
+  def initialize(type, location)
     @type = type 
     @sym = find_symbol(type)
     @moves = find_moves(type)
-    @owner = owner
+    @owner = find_owner(char)
     @location = location
     @active = true
   end
@@ -27,12 +30,13 @@ class Piece
     PIECES.each { |name, char| return char if name.end_with?(type.upcase) }
   end
 
-  def thing
-    PIECES.class
+  def find_moves(type)
+    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
+  end
+
+  def find_owner(char)
+    char.eql?(char.upcase) ? 1 : 2
   end
     
 end
 
-p = Piece.new('king', 1, nil)
-puts p.type
-puts p.find_symbol(p.type)

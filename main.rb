@@ -6,7 +6,7 @@ require_relative './lib/instructions'
 require_relative './lib/board'
 require_relative './lib/space'
 
-binding.pry
-
 loader = FenLoad.new('./lib/fen/saves/new_game.fen')
-b = Board.new(loader.get_fen)
+loader.collapse_empty_spaces
+#puts loader.fen_array
+#b = Board.new(loader.fen_array)
