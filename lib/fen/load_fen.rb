@@ -38,8 +38,31 @@ class FenLoad
     end
     self.fen_array = new_fen_array
   end
+
+  def process_fen_array
+    new_fen_array = []
+    fen_array.each do |line|
+      new_fen_array << expand_line(line)
+    end
+    self.fen_array = new_fen_array
+  end
+
+  def expand_line(line, new_fen_line = '')
+    line.each_char do |char|
+      if (1..8).include?(char.to_i)
+        blanks = ''
+        char.to_i.times { |i| blanks += '*' }
+        new_fen_line << blanks
+      else
+        new_fen_line << char
+      end
+    end
+    new_fen_line
+  end
 end
 
+
 loader = FenLoad.new('./saves/new_game.fen')
-loader.expand_empty_spaces
+#loader.expand_empty_spaces
+loader.process_fen_array
 puts loader.fen_array
