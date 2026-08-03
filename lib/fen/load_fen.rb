@@ -9,7 +9,7 @@ class FenLoad
     @file = File.new(path, 'r')
     @fen_string = get_string
     @fen_array = split_string
-    @line_array = []
+    self.fen_array = process_fen_array
   end
 
   def get_string
@@ -21,24 +21,7 @@ class FenLoad
     self.fen_array = fen_string.split('/')
   end
 
-  def expand_empty_spaces
-    new_fen_array = []
-    fen_array.each do |line|
-      new_fen_line = '' 
-      line.each_char do |char|
-        if (1..8).include?(char.to_i)
-          blanks = ''
-          char.to_i.times { |i| blanks += '*' }
-          new_fen_line << blanks
-        else
-          new_fen_line << char
-        end
-      end
-       new_fen_array << new_fen_line
-    end
-    self.fen_array = new_fen_array
-  end
-
+  
   def process_fen_array
     new_fen_array = []
     fen_array.each do |line|
@@ -60,9 +43,28 @@ class FenLoad
     new_fen_line
   end
 end
+#loader = FenLoad.new('./saves/new_game.fen')
+#loader.process_fen_array
+#puts loader.fen_array
+
+#------------------------------------------------------------------------------
+
+#def expand_empty_spaces
+#    new_fen_array = []
+#    fen_array.each do |line|
+#      new_fen_line = '' 
+#      line.each_char do |char|
+#        if (1..8).include?(char.to_i)
+#          blanks = ''
+#          char.to_i.times { |i| blanks += '*' }
+#          new_fen_line << blanks
+#        else
+#          new_fen_line << char
+#        end
+#      end
+#       new_fen_array << new_fen_line
+#    end
+#    self.fen_array = new_fen_array
+#  end
 
 
-loader = FenLoad.new('./saves/new_game.fen')
-#loader.expand_empty_spaces
-loader.process_fen_array
-puts loader.fen_array

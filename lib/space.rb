@@ -16,12 +16,8 @@ class Space
     print piece
   end
 
-  def check_piece  #symbol(piece)
-    unless piece.nil?
-      self.piece = " #{piece}"  #.sym}"
-    else
-      self.piece = "  "         #symbol = '  '
-    end
+  def self.create_proper_space(char)
+
   end
         
 end
