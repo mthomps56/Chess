@@ -1,23 +1,28 @@
 # frozen_string_literal: true
+require 'colorize'
 require_relative './pieces/utf_codes.rb'
 require_relative './pieces/pieces'
 
 class Space
   include ChessPieces
 
-  attr_accessor :piece, :symbol
+  attr_accessor :background, :color, :piece, :symbol
 
-  def initialize(piece = nil, symbol = '  ')
-#    @symbol = check_symbol(fen)
+  def initialize(color, piece, symbol = '')
     @piece = piece
+    @symbol = symbol 
+    @background = "#{symbol} ".colorize(background: color)
+    @color = color
+  end
+
+  def update_space(piece)
+    @piece = piece
+    @symbol = piece.symbol
+    @background = "#{symbol} ".colorize(background: color)
   end
 
   def print_space
-    print piece
+    print background 
   end
 
-  def self.create_proper_space(char)
-
-  end
-        
 end

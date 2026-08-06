@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry-byebug'
 require 'colorize'
 require_relative 'moves'
 require_relative 'utf_codes'
@@ -11,7 +12,7 @@ class Piece
 
   attr_accessor :type, :symbol, :moves, :owner, :location, :active
 
-  LOW, HIGH = 1, 8
+  LOW, HIGH = 0, 7
   
   def initialize(fen_char, location)
     @type     = find_type(fen_char) 
@@ -30,34 +31,42 @@ class Piece
   
   def find_type(fen_char)
 
-    type = case fen_char.downcase
+    type = case fen_char
            when 'k' then 'king'
+           when 'K' then 'king'
            when 'q' then 'queen'
+           when 'Q' then 'queen'
            when 'r' then 'rook'
+           when 'R' then 'ROOK'
            when 'b' then 'bishop'
+           when 'B' then 'bishop'
            when 'n' then 'knight'
+           when 'N' then 'knight'
            when 'p' then 'pawn'
+           when 'P' then 'pawn'
+           when '*' then 'empty'
            end
   end
 
   def find_symbol(type)
-    PIECES.each { |name, char| return char if name.start_with?(type.upcase) }
+    PIECES.each { |name, char| return " #{char}" if name.start_with?(type) }
   end
 
   def find_moves(type)
-    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
+    MOVES.each { |name, moves| return moves if name.eql?(type) }
   end
 
   def find_owner(fen_char)
+    return '*' if fen_char.eql?('*')
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
 end
 
-queen = Piece.new('r', [1, 1])
-puts queen.type
-puts queen.owner
-puts
-puts queen.symbol
-puts
-puts queen.moves
-puts queen.location
+#queen = Piece.new('r', [1, 1])
+#puts queen.type
+#puts queen.owner
+#puts
+#puts queen.symbol
+#puts
+#puts queen.moves
+#puts queen.location
