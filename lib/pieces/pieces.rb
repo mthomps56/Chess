@@ -49,11 +49,11 @@ class Piece
   end
 
   def find_symbol(type)
-    PIECES.each { |name, char| return " #{char}" if name.start_with?(type) }
+    PIECES.each { |name, char| return char if name.start_with?(type.upcase) }
   end
 
   def find_moves(type)
-    MOVES.each { |name, moves| return moves if name.eql?(type) }
+    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
   end
 
   def find_owner(fen_char)
