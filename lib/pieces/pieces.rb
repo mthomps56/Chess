@@ -15,8 +15,8 @@ class Piece
   LOW, HIGH = 0, 7
   
   def initialize(fen_char, location)
-    @type     = find_type(fen_char) 
     @owner    = find_owner(fen_char)
+    @type     = find_type(fen_char, owner) 
     @symbol   = find_symbol(type)
     @moves    = find_moves(type)
     @location = location
@@ -29,23 +29,24 @@ class Piece
     x_check && y_check 
   end
   
-  def find_type(fen_char)
+  def find_type(fen_char, owner)
 
     type = case fen_char
-           when 'k' then 'king'
-           when 'K' then 'king'
-           when 'q' then 'queen'
-           when 'Q' then 'queen'
-           when 'r' then 'rook'
-           when 'R' then 'ROOK'
-           when 'b' then 'bishop'
-           when 'B' then 'bishop'
-           when 'n' then 'knight'
-           when 'N' then 'knight'
-           when 'p' then 'pawn'
-           when 'P' then 'pawn'
-           when '*' then 'empty'
+           when 'k' then 'king_'   + owner.to_s
+           when 'K' then 'king_'   + owner.to_s
+           when 'q' then 'queen_'  + owner.to_s
+           when 'Q' then 'queen_'  + owner.to_s
+           when 'r' then 'rook_'   + owner.to_s
+           when 'R' then 'ROOK_'   + owner.to_s
+           when 'b' then 'bishop_' + owner.to_s
+           when 'B' then 'bishop_' + owner.to_s
+           when 'n' then 'knight_' + owner.to_s
+           when 'N' then 'knight_' + owner.to_s
+           when 'p' then 'pawn_'   + owner.to_s
+           when 'P' then 'pawn_'   + owner.to_s
+           when '*' then 'empty_'  + owner.to_s
            end
+    puts type
   end
 
   def find_symbol(type)
