@@ -30,7 +30,6 @@ class Piece
   end
   
   def find_type(fen_char, owner)
-
     type = case fen_char
            when 'k' then 'king_'   + owner.to_s
            when 'K' then 'king_'   + owner.to_s
@@ -44,9 +43,8 @@ class Piece
            when 'N' then 'knight_' + owner.to_s
            when 'p' then 'pawn_'   + owner.to_s
            when 'P' then 'pawn_'   + owner.to_s
-           when '*' then 'empty_'  + owner.to_s
+           when '*' then 'empty'  
            end
-    puts type
   end
 
   def find_symbol(type)
@@ -58,7 +56,7 @@ class Piece
   end
 
   def find_owner(fen_char)
-    return '*' if fen_char.eql?('*')
+#    return '0' if fen_char.eql?('*')
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
 end

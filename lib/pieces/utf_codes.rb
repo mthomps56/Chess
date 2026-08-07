@@ -6,13 +6,13 @@ module ChessPieces
   E = 'UTF-8'
 
   PIECES = {  
-    # Player Red Pieces. Player(1)
-    KING_1: 9812.chr(E).colorize(color: :red),
-   QUEEN_1: 9813.chr(E).colorize(color: :red),
-    ROOK_1: 9814.chr(E).colorize(color: :red),
-  BISHOP_1: 9815.chr(E).colorize(color: :red),
-  KNIGHT_1: 9816.chr(E).colorize(color: :red),
-    PAWN_1: 9817.chr(E).colorize(color: :red),
+    # Player Yellow Pieces. Player(1)
+    KING_1: 9818.chr(E).colorize(color: :light_yellow),
+   QUEEN_1: 9819.chr(E).colorize(color: :light_yellow),
+    ROOK_1: 9820.chr(E).colorize(color: :light_yellow),
+  BISHOP_1: 9821.chr(E).colorize(color: :light_yellow),
+  KNIGHT_1: 9822.chr(E).colorize(color: :light_yellow),
+    PAWN_1: 9823.chr(E).colorize(color: :light_yellow),
 
     # Player Blue Pieces. Player(2)
     KING_2: 9818.chr(E).colorize(color: :blue),
