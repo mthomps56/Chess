@@ -1,0 +1,35 @@
+Currently working on player.rb. Trying to get highlighting back and
+un-highlighting to properly work
+
+CONSTANTS:
+
+'pieces.rb'
+PLAYER_1_COLOR; ## Used to turn piece color back to it's original color
+PLAYER_2_COLOR; ## after being un-highlighted during piece choosing
+
+LOW; HIGH;      ## Used to check bounds (currently unused)
+
+>ChessPieces Module<    ## included in pieces. 
+  PIECES    ## Holds a list of all piece types to choose from
+  MOVES     ## List of each Piece and there movement options
+-------------------------------------------------------------------------------
+    
+'player.rb'
+BOUNDS => HIGH, LOW     ## Checks that pieces stay in bounds in movement 
+                        ## (move_piece)
+
+RIGHT, LEFT     ## Directions for movement (move_piece)
+UP, DOWN
+-------------------------------------------------------------------------------
+
+'board.rb'
+X_ROW, Y_COL    ## Arrays to represent Board
+
+WHITE_SPACE_EVEN    ## Arrays to map which spaces are white and which are grey
+WHITE_SPACE_ODD
+-------------------------------------------------------------------------------
+
+The Board class contains instances of Spaces. The Spaces can be empty or 
+contain Pieces. Pieces are represented by different colors for reach Player. 
+The Piece types are held in a file called 'utf_codes.rb'. The Moves each
+piece can make are represented in the file 'moves.rb'. 

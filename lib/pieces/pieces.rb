@@ -11,7 +11,8 @@ class Piece
   include ChessPieces
 
   attr_accessor :type, :symbol, :moves, :owner, :location, :active
-
+  
+  PLAYER_1_COLOR, PLAYER_2_COLOR = :light_yellow, :blue
   LOW, HIGH = 0, 7
   
   def initialize(fen_char, location)

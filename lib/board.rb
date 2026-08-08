@@ -2,6 +2,7 @@
 
 require 'colorize'
 require 'pry-byebug'
+require_relative 'board'
 require_relative 'space'
 require_relative 'pieces/pieces'
 require_relative './fen/load_fen'
@@ -21,7 +22,7 @@ class Board
   def initialize(save)
     @spaces = {}
     make_board(save)
-    print_board
+#    print_board(6, 4)
   end
 
   def make_board(save)  # 'save' arg is a fen string.
@@ -31,20 +32,33 @@ class Board
         char = save[y][x]
         color = white_space.include?(x) ? :grey : :white
 #        binding.pry
-#        piece = char.eql?('*') ? nil : Piece.new(char, [x, y])
+        piece = char.eql?('*') ? nil : Piece.new(char, [x, y])
         piece = Piece.new(char, [x, y])
         spaces[[x, y]] = Space.new(color, piece, piece.symbol)
       end
     end
   end
 
-  def print_board
+  def print_board(locations, og_color)
+    highlight_space(locations[:curr], locations[:prev], og_color)
     Y_COL.each do |y|
       X_ROW.each do |x|
         spaces[[x, y]].print_space
         puts if x.eql? 7
       end
     end
+  end
+
+  def highlight_space(curr_location, prev_location, og_color)
+    self.spaces[curr_location].background = 
+      spaces[curr_location].background.colorize(color: :light_green)
+    un_highlight_space(prev_location,og_color)
+  end
+
+  def un_highlight_space(prev_location, og_color)
+    og_color = og_color.eql?(1) ? Piece::PLAYER_1_COLOR : Piece::PLAYER_2_COLOR
+    self.spaces[prev_location].background = 
+      spaces[prev_location].background.colorize(color: og_color)
   end
 
 end
