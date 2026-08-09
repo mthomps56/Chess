@@ -24,11 +24,6 @@ class Piece
     @active   = true
   end
 
-  def check_bounds(this_step, high, low)
-    x_check = true if this_step.first >= LOW && this_step.first <= HIGH
-    y_check = true if this_step.last  >= LOW && this_step.last  <= HIGH
-    x_check && y_check 
-  end
   
   def find_type(fen_char, owner)
     type = case fen_char
@@ -57,16 +52,12 @@ class Piece
   end
 
   def find_owner(fen_char)
-#    return '0' if fen_char.eql?('*')
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
-end
 
-#queen = Piece.new('r', [1, 1])
-#puts queen.type
-#puts queen.owner
-#puts
-#puts queen.symbol
-#puts
-#puts queen.moves
-#puts queen.location
+  #def check_bounds(this_step, high, low)
+  #  x_check = true if this_step.first >= LOW && this_step.first <= HIGH
+  #  y_check = true if this_step.last  >= LOW && this_step.last  <= HIGH
+  #  x_check && y_check 
+  #end
+end

@@ -49,6 +49,9 @@ class Board
     end
   end
 
+#  def find_pieces_count
+
+
 
   def print_board(locations, og_color)
     highlight_space(locations[:curr], locations[:prev], og_color)

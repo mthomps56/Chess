@@ -1,6 +1,6 @@
-Currently working on player.rb. Trying to get highlighting back and
-un-highlighting to properly work
+Working on making pieces hash for each player at board instantiation
 
+-------------------------------------------------------------------------------
 CONSTANTS:
 
 'pieces.rb'
@@ -29,7 +29,13 @@ WHITE_SPACE_EVEN    ## Arrays to map which spaces are white and which are grey
 WHITE_SPACE_ODD
 -------------------------------------------------------------------------------
 
-The Board class contains instances of Spaces. The Spaces can be empty or 
-contain Pieces. Pieces are represented by different colors for reach Player. 
-The Piece types are held in a file called 'utf_codes.rb'. The Moves each
-piece can make are represented in the file 'moves.rb'. 
+The Board class contains instances of Spaces. The Spaces instancescan be empty 
+or contain pieces; instantiations of the Pieces class. Pieces are represented 
+by different colors for reach Player. The Piece types are held in a file called 
+'utf_codes.rb'. The Moves each piece can make are represented in the file 
+'moves.rb'. 
+
+The board is made from a fen_string which is fetched from a file and turned in 
+to fen_array. The 'make_board' method from Board uses each consecutive fen
+char to automatically build the pieces. The player is chosen by case, lowercase
+for Player_1 and uppercase for Player_2. 
