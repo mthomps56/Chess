@@ -11,11 +11,11 @@ player_1 = Player.new(1)
 loader = FenLoad.new('./lib/fen/saves/new_game.fen')
 # loader.fen_array
 b = Board.new(loader.fen_array)
-
+b.pieces.each { |key, value| puts "#{key}: #{value}" }
 start_of_turn = true
-while true
-  locations = player_1.move_space(start_of_turn)
-  puts locations
-  b.print_board(locations, player_1.identity)
-  start_of_turn = false
-end
+#while true
+#  locations = player_1.move_space(start_of_turn)
+#  puts locations
+#  b.print_board(locations, player_1.identity)
+#  start_of_turn = false
+#end
