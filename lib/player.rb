@@ -60,6 +60,7 @@ class Player
           [curr_location[0] +    UP[0], curr_location[1] +    UP[1]]
         else
           puts "USE [a] [s] [d] [w] or the ARROW keys."
+          return prev_location
         end
       return new_location
     end
