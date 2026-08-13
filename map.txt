@@ -39,3 +39,60 @@ The board is made from a fen_string which is fetched from a file and turned in
 to fen_array. The 'make_board' method from Board uses each consecutive fen
 char to automatically build the pieces. The player is chosen by case, lowercase
 for Player_1 and uppercase for Player_2. 
+
+-------------------------------------------------------------------------------
+Player     (lib/player.rb)
+
+Two players are initialized; 'player_1' and 'player_2'
+  They each have an 'identity' which is set at initialization. '1' for player
+  1 and '2' for player 2. **PIECES ATTRIBUTE NOT YET IMPLEMENTED**. The
+  'curr_location' and 'prev_location' attributes store the current and
+  previous space of the cursor. 
+
+  The cursor uses the 'move_space(start_of_turn = nil)' method to first set
+  an initial location. The initial location is dependent on which player's
+  turn it is. 'curr_location' is passed to 'prev_location'. The purpose of
+  this is to keep the cursor from being able to move off the board, which is
+  controlled by the 'in_bounds?' method. 
+
+  The navigate(curr_location) method uses the Remedy Gem and it's Interaction
+  class to enable '[a][s][d][w] and arrows for piece selection. ENTER IS YET
+  TO BE IMPLEMENTED but will select the piece, at which point the cursor can
+  be moved to where the piece goes. The piece can only do moves legal to that
+  piece using the Piece class's 'moves' attribute. The 'move_space' method
+  calls itself until the piece is selected.
+
+
+FenLoad   (lib/fen/load_fen.rb)
+
+The board is loaded with pieces using a FEN string. The string can be either a
+  new game or a saved game. **SAVED_GAMES YET TO BE IMPLEMENTED**. A loader is
+  instantiated with a file path to the string. The string is split in to
+  separate lines that represent each Y axis column on the board and stored in
+  an array. 'process_fen_array' Blank lines are processed and expanded from
+  the digit representing consecutive spaces in the FEN string with 
+  'expand_line'. The final fen_array is then passed to the Board class and 
+  used when calling the 'make_board' method. 
+
+Board     (lib/board.rb)
+
+The board is initialized with the 'make_board(save)' method. The save
+  argument is a FEN string. The board is loaded by column (Y) and passes
+  along the X rows. It takes the character that aligns with the Fen array
+  and stores it in 'char'. 'color' stores the appropriate color of that
+  board space by identifying if it an odd or even number. A piece of the
+  appropriate type is then made from the 'char' and loaded in to a Space
+  object. 
+
+  The board color, piece, and separately the piece.symbol are 
+  arguments to the Space. The symbol is the ASCII representation of the
+  chess piece in UTF-8 encoding. 
+
+  'print_board(locations, og_color)' print's each player's turn with an
+  updated version of the board. The location is used to show which space
+  to highlight and un-highlight using the respective methods.   
+
+Space     (lib/space.rb)
+
+The Space class excepts either a piece or a dummy piece for an empty space.
+  A piece or a dummy piece is put inside the 'background' string.

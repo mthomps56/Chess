@@ -27,7 +27,7 @@ class Player
 
   def move_space(start_of_turn = nil)
 
-    self.curr_location = identity.eql?(1) ? [2, 2] : [5, 5] if start_of_turn
+    self.curr_location = identity.eql?(1) ? [4, 1] : [4, 6] if start_of_turn
     self.prev_location = curr_location
     start_of_turn = false
 

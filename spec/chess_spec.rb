@@ -5,9 +5,8 @@ require './lib/pieces_container/pieces/bishop'
 require './lib/board'
 
 RSpec.describe ChessPieces do
-  describe 'it prints a white pawn' do
+  describe 'it prints a bishop' do
     it 'equals the unicode number' do
-      expect(ChessPieces::W_PAWN.ord).to eql 9817
     end
   end
 

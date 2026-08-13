@@ -41,7 +41,7 @@ MOVES = {
       diag_take_left: [-1, 1], diag_take_right: [1, 1]
   },
 
-  'EMPTY' => { no_move: nil }
+  'empty' => { no_move: nil }
 }  
 end
 

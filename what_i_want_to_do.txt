@@ -1,0 +1,5 @@
+take the piece and decide which player it belongs to
+add _<num> to piece depending on the number of that piece
+
+
+1. find if the type is lower or upper case

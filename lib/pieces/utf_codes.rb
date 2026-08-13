@@ -7,22 +7,22 @@ module ChessPieces
 
   PIECES = {  
     # Player Yellow Pieces. Player(1)
-    KING_1: 9818.chr(E).colorize(color: :light_yellow),
-   QUEEN_1: 9819.chr(E).colorize(color: :light_yellow),
-    ROOK_1: 9820.chr(E).colorize(color: :light_yellow),
-  BISHOP_1: 9821.chr(E).colorize(color: :light_yellow),
-  KNIGHT_1: 9822.chr(E).colorize(color: :light_yellow),
-    PAWN_1: 9823.chr(E).colorize(color: :light_yellow),
+    king: 9818.chr(E).colorize(color: :light_yellow),
+   queen: 9819.chr(E).colorize(color: :light_yellow),
+    rook: 9820.chr(E).colorize(color: :light_yellow),
+  bishop: 9821.chr(E).colorize(color: :light_yellow),
+  knight: 9822.chr(E).colorize(color: :light_yellow),
+    pawn: 9823.chr(E).colorize(color: :light_yellow),
 
     # Player Blue Pieces. Player(2)
-    KING_2: 9818.chr(E).colorize(color: :blue),
-   QUEEN_2: 9819.chr(E).colorize(color: :blue),
-    ROOK_2: 9820.chr(E).colorize(color: :blue),
-  BISHOP_2: 9821.chr(E).colorize(color: :blue),
-  KNIGHT_2: 9822.chr(E).colorize(color: :blue),
-    PAWN_2: 9823.chr(E).colorize(color: :blue),
+    KING: 9818.chr(E).colorize(color: :blue),
+   QUEEN: 9819.chr(E).colorize(color: :blue),
+    ROOK: 9820.chr(E).colorize(color: :blue),
+  BISHOP: 9821.chr(E).colorize(color: :blue),
+  KNIGHT: 9822.chr(E).colorize(color: :blue),
+    PAWN: 9823.chr(E).colorize(color: :blue),
 
-    EMPTY: ' '
+    empty: ' '
   }
 end
 
