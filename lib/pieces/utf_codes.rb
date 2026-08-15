@@ -22,7 +22,7 @@ module ChessPieces
   KNIGHT: 9822.chr(E).colorize(color: :blue),
     PAWN: 9823.chr(E).colorize(color: :blue),
 
-    empty: ' '
+    EMPTY: ' '
   }
 end
 

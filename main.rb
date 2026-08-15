@@ -17,8 +17,9 @@ b = Board.new(loader.fen_array)
 start_of_turn = true
 while true
   locations = player_1.move_space(start_of_turn)
-  print locations
-  puts;
+  piece = b.spaces[locations[:curr]].piece
+#  player_1.calculate_legal_moves(piece, b.spaces)
   b.print_board(locations, player_1.identity)
+  puts b.spaces[locations[:curr]].piece.moves
   start_of_turn = false
 end

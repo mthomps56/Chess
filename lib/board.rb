@@ -21,18 +21,14 @@ class Board
     @player_1_pieces = {}   # after sorting
     @player_2_pieces = {}   # ^^^^^^^^^^^^^
     make_board(save)
-    sort_pieces
   end
 
   def collect_pieces(piece)
-    return if piece.type.eql?('empty')
+    return if piece.type.eql?('EMPTY')
     count = pieces.keys.select { |key| key.include?(piece.type) }
     self.pieces[piece.type + '_' + count.length.to_s] = piece
   end
   
-  def sort_pieces
-  end
-
   # Fill the board with spaces and each space with it's piece (or lack of)
   # based on the contents of the FEN data. 
   def make_board(save, piece_instances = [])  # 'save' arg is a fen string.
@@ -79,7 +75,4 @@ class Board
 
 end
 
-#-------------------------NOT_IN_USE-----------------------------
-#piece.type.eql?(piece.type.upcase) ? (self.player_1_pcs[piece.type] = piece)
-#                                   : (self.player_2_pcs[piece.type] = piece)
 

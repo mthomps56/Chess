@@ -36,12 +36,12 @@ class Player
 
     unless bounds
       self.curr_location = prev_location
-      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
+#      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
       move_space
     else
       self.prev_location = curr_location
       self.curr_location = new_location
-      puts "from else; curr: #{curr_location}, prev: #{prev_location}"
+#      puts "from else; curr: #{curr_location}, prev: #{prev_location}"
     end
     return locations = { curr: curr_location, prev: prev_location }
   end
@@ -65,6 +65,12 @@ class Player
       return new_location
     end
   end
+
+  def calculate_legal_moves(piece, spaces)
+    piece.moves.each do |dir, direction|
+      puts "dir: #{dir}; direction: #{spaces}"
+    end
+  end
   
   # Keeps the player cursor in bounds during piece selection.
   def in_bounds?(loc)       # loc is location
@@ -72,6 +78,7 @@ class Player
     valid_y = loc[1] <= BOUNDS[:HIGH] && loc[1] >= BOUNDS[:LOW] ? true : false
     valid_x && valid_y
   end
+
 end
 
 

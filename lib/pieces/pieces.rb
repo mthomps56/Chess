@@ -39,7 +39,7 @@ class Piece
            when 'N' then 'KNIGHT' 
            when 'p' then 'pawn'   
            when 'P' then 'PAWN'   
-           when '*' then 'empty'  
+           when '*' then 'EMPTY'  
            end
   end
 
@@ -48,7 +48,7 @@ class Piece
   end
 
   def find_moves(type)
-    MOVES.each { |name, moves| return moves if name.eql?(type.upcase) }
+    MOVES.each { |name, moves| return moves if type.upcase.eql?(name) }
   end
 
   def find_owner(fen_char)
