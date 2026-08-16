@@ -23,7 +23,6 @@ class Piece
     @location = location
     @active   = true
   end
-
   
   def find_type(fen_char)
     type = case fen_char
@@ -41,6 +40,9 @@ class Piece
            when 'P' then 'PAWN'   
            when '*' then 'EMPTY'  
            end
+  end
+
+  def calculate_possible_coordinates(curr_location)
   end
 
   def find_symbol(type)

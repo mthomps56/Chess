@@ -6,8 +6,10 @@ require_relative 'space'
 require_relative 'pieces/pieces'
 require_relative 'pieces/utf_codes'
 require_relative './fen/load_fen'
+require_relative 'game_procs'
 
 class Board
+  include GameProcs
 
   X_ROW, Y_COL = (0..7).to_a, (0..7).to_a
   WHITE_SPACES_EVEN = [0, 2, 4, 6] 

@@ -66,10 +66,13 @@ class Player
     end
   end
 
-  def calculate_legal_moves(piece, spaces)
-    piece.moves.each do |dir, direction|
-      puts "dir: #{dir}; direction: #{spaces}"
-    end
+  def get_locations(piece_choices, new_location)
+    piece_choices = piece_choices.map { |key, value| piece_choices[key] } 
+    piece_locations = piece_choices.map { |indice, index| indice.location }
+  end
+
+  def get_active_pieces
+    piece_choices = pieces.select { |name, piece| piece.active }
   end
   
   # Keeps the player cursor in bounds during piece selection.
