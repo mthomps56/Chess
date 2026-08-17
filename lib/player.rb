@@ -19,29 +19,41 @@ class Player
   def initialize(identity)
     @identity = identity    # The player number
     @pieces = {}
-    @curr_location = curr_location
+    @curr_location = identity.eql?(1) ? [1, 1] : [6, 6]
     @prev_location = prev_location
 
     @user_input = Interaction.new
   end
 
-  def move_space(start_of_turn = nil)
+#  def move_space(start_of_turn = nil)
 
-    self.curr_location = identity.eql?(1) ? [4, 1] : [4, 6] if start_of_turn
+#    self.curr_location = identity.eql?(1) ? [4, 1] : [4, 6] if start_of_turn
+#    self.prev_location = curr_location
+#    start_of_turn = false
+
+#    new_location = navigate(curr_location)
+#    bounds = in_bounds?(new_location) unless start_of_turn
+
+#    unless bounds
+#      self.curr_location = prev_location
+#      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
+#    else
+#      self.prev_location = curr_location
+#      self.curr_location = new_location
+#    end
+#    return locations = { curr: curr_location, prev: prev_location }
+#  end
+  
+  def move_space(bounds = false)
     self.prev_location = curr_location
-    start_of_turn = false
-
     new_location = navigate(curr_location)
-    bounds = in_bounds?(new_location) unless start_of_turn
-
+    bounds = in_bounds?(new_location) ? true : false
     unless bounds
       self.curr_location = prev_location
-#      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
       move_space
     else
       self.prev_location = curr_location
       self.curr_location = new_location
-#      puts "from else; curr: #{curr_location}, prev: #{prev_location}"
     end
     return locations = { curr: curr_location, prev: prev_location }
   end
@@ -59,10 +71,16 @@ class Player
         when 'w', 'up'
           [curr_location[0] +    UP[0], curr_location[1] +    UP[1]]
         else
-          puts "USE [a] [s] [d] [w] or the ARROW keys."
-          return prev_location
+          puts "use [a] [s] [d] [w] or the arrow keys."
+          next
         end
       return new_location
+    end
+  end
+
+  def make_selection(location)
+    user_input.loop do |select|
+      select = 'control_m' ? true : false
     end
   end
 

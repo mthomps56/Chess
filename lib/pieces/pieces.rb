@@ -43,6 +43,11 @@ class Piece
   end
 
   def calculate_possible_coordinates(curr_location)
+    possible_moves = {}
+    moves.each do |name, direction| 
+      possible_moves[name] = [direction] 
+      puts possible_moves[name]
+    end
   end
 
   def find_symbol(type)
@@ -56,5 +61,6 @@ class Piece
   def find_owner(fen_char)
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
+
 end
 
