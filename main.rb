@@ -28,8 +28,7 @@ player_1.pieces['ROOK_1'].calculate_possible_coordinates(active_piece_locations[
 
 selection = false
 start_of_turn = true
-while selection.eql?(false)
+while true
   locations, selection = player_1.move_space
   b.print_board(locations, player_1.identity)
-  start_of_turn = false
 end

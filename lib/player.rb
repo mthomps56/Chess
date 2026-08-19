@@ -54,7 +54,7 @@ class Player
     bounds = in_bounds?(new_location) ? true : false
     unless bounds
       self.curr_location = prev_location
-      move_space(selection) #unless selection.eql?(true)
+      move_space #unless selection.eql?(true)
     else
       self.prev_location = curr_location
       self.curr_location = new_location
