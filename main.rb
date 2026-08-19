@@ -26,12 +26,10 @@ active_piece_locations = players[0].get_locations(player_piece_choices, [6, 7])
 # Single piece expended move set
 player_1.pieces['ROOK_1'].calculate_possible_coordinates(active_piece_locations[0])
 
+selection = false
 start_of_turn = true
-while true
-  locations = player_1.move_space
+while selection.eql?(false)
+  locations, selection = player_1.move_space
   b.print_board(locations, player_1.identity)
   start_of_turn = false
-  puts "locations: #{locations}"
-#  break if player_1.make_selection(locations[:curr])
-#  puts b.spaces[locations[:curr]].piece.type
 end

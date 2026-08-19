@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry-byebug'
 require 'remedy'
 
 include Remedy
@@ -25,7 +26,7 @@ class Player
     @user_input = Interaction.new
   end
 
-#  def move_space(start_of_turn = nil)
+#  def move_space(start_of_turn = true)
 
 #    self.curr_location = identity.eql?(1) ? [4, 1] : [4, 6] if start_of_turn
 #    self.prev_location = curr_location
@@ -37,6 +38,7 @@ class Player
 #    unless bounds
 #      self.curr_location = prev_location
 #      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
+#      move_space
 #    else
 #      self.prev_location = curr_location
 #      self.curr_location = new_location
@@ -47,15 +49,17 @@ class Player
   def move_space(bounds = false)
     self.prev_location = curr_location
     new_location = navigate(curr_location)
+#    return locations if selection.eql?(true)
+
     bounds = in_bounds?(new_location) ? true : false
     unless bounds
       self.curr_location = prev_location
-      move_space
+      move_space(selection) #unless selection.eql?(true)
     else
       self.prev_location = curr_location
       self.curr_location = new_location
-    end
-    return locations = { curr: curr_location, prev: prev_location }
+    end 
+    locations = { curr: curr_location, prev: prev_location }
   end
 
   def navigate(curr_location)
@@ -70,17 +74,13 @@ class Player
           [curr_location[0] + RIGHT[0], curr_location[1] + RIGHT[1]]
         when 'w', 'up'
           [curr_location[0] +    UP[0], curr_location[1] +    UP[1]]
+        when 'control_m', 'space'
+          return new_location
         else
           puts "use [a] [s] [d] [w] or the arrow keys."
           next
         end
       return new_location
-    end
-  end
-
-  def make_selection(location)
-    user_input.loop do |select|
-      select = 'control_m' ? true : false
     end
   end
 
