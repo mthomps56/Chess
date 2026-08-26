@@ -96,27 +96,3 @@ Space     (lib/space.rb)
 
 The Space class excepts either a piece or a dummy piece for an empty space.
   A piece or a dummy piece is put inside the 'background' string.
-
--------------------------------------------------------------------------------
-
-MAIN-GAME-LOOP
-
-show instructions
-
-player_1's turn:
-  
-  get the active pieces
-    find there locations
-  move cursor to piece location
-  select the space
-  return the piece
-  find the piece type and location
-    find the possible locations the piece can move
-    move it to one of those locations or show error
-
-  if taking a piece, make the others piece inactive
-
-  find out if other players king is now in check or checkmate
-
-
-  

@@ -26,39 +26,19 @@ class Player
     @user_input = Interaction.new
   end
 
-#  def move_space(start_of_turn = true)
-
-#    self.curr_location = identity.eql?(1) ? [4, 1] : [4, 6] if start_of_turn
-#    self.prev_location = curr_location
-#    start_of_turn = false
-
-#    new_location = navigate(curr_location)
-#    bounds = in_bounds?(new_location) unless start_of_turn
-
-#    unless bounds
-#      self.curr_location = prev_location
-#      puts "from unless; curr: #{curr_location}, prev: #{prev_location}"
-#      move_space
-#    else
-#      self.prev_location = curr_location
-#      self.curr_location = new_location
-#    end
-#    return locations = { curr: curr_location, prev: prev_location }
-#  end
-  
-  def move_space(bounds = false)
+  def choose_space(bounds = false)
     self.prev_location = curr_location
     new_location = navigate(curr_location)
-#    return locations if selection.eql?(true)
-
+    
     bounds = in_bounds?(new_location) ? true : false
     unless bounds
       self.curr_location = prev_location
-      move_space
+      choose_space
     else
       self.prev_location = curr_location
       self.curr_location = new_location
-    end 
+    end
+    puts "curr: #{curr_location}, prev: #{prev_location}"
     locations = { curr: curr_location, prev: prev_location }
   end
 
