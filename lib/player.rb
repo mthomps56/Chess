@@ -24,9 +24,21 @@ class Player
     @prev_location = prev_location
 
     @user_input = Interaction.new
+    @e
   end
 
-  def choose_space(bounds = false)
+  def confirm_piece()
+    confirmed = false
+    while true
+      gets confirmed 
+      comfirmed =  confirmed.eql?('y' || 'n') ? true : false 
+      if confirmed != 'y' || confirmed != 'n'
+      else redo
+      end
+    end
+  end
+
+  def choose_space(choice = false, bounds = false)
     self.prev_location = curr_location
     new_location = navigate(curr_location)
     
@@ -40,6 +52,8 @@ class Player
     end
     puts "curr: #{curr_location}, prev: #{prev_location}"
     locations = { curr: curr_location, prev: prev_location }
+    #choice = confirm_piece()
+    #return locations if choice
   end
 
   def navigate(curr_location)

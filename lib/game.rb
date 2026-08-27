@@ -16,7 +16,7 @@ class Game
     color = board.spaces[curr_space].color
     board.spaces[curr_space].piece = nil
     board.spaces[curr_space].symbol = nil
-    board.spaces[curr_space].background = "  ".colorize(background: color)
+    board.spaces[curr_space].background = "   ".colorize(background: color)
 
     puts "new_space: #{new_space}"
 
