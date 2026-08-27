@@ -19,17 +19,6 @@ game = Game.new
 
 loader = FenLoad.new('./lib/fen/saves/new_game.fen') 
 b = Board.new(loader.fen_array)
-player_pieces = GameProcs::GET_PLAYER_PIECES.call(b.pieces)
-player_1.pieces, player_2.pieces = player_pieces[0], player_pieces[1]
-players = [player_1, player_2]
-player_piece_choices = players[0].get_active_pieces
-active_piece_locations = players[0].get_locations(player_piece_choices, [6, 7])
-#active_piece_locations.each { |location| pp location }
-
-b.pieces.each do |key, piece|
-  key.eql?(key.upcase) ? (b.player_1_pieces[key] = piece) : 
-    b.player_2_pieces[key] = piece
-end
 
 p b.player_1_pieces.keys; puts;
 p b.player_2_pieces.keys

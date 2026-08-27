@@ -24,11 +24,22 @@ class Board
     @player_2_pieces = {}   # ^^^^^^^^^^^^^
     make_board(save)
   end
+  
+  def do_player_piece_assignment(piece)
+    collect_pieces(piece)
+    sort_pieces
+  end
 
   def collect_pieces(piece)
     return if piece.type.eql?('EMPTY')
     count = pieces.keys.select { |key| key.include?(piece.type) }
     self.pieces[piece.type + '_' + count.length.to_s] = piece
+  end
+  def sort_pieces
+    pieces.each do |key, piece|
+      key.eql?(key.upcase) ? (player_1_pieces[key] = piece) : 
+      (player_2_pieces[key] = piece)
+    end
   end
   
   # Fill the board with spaces and each space with it's piece (or lack of)
@@ -41,15 +52,12 @@ class Board
         color = white_space.include?(x) ? :grey : :white
         piece = Piece.new(char, [x, y]) 
         spaces[[x, y]] = Space.new(color, piece, piece.symbol)
-        collect_pieces(piece)
+        do_player_piece_assignment(piece)
+#        collect_pieces(piece)
       end
     end
   end
   
-  def space_print
-    spaces[[1, 1]].print_space
-  end
-
   # Run after each player's turn.
   def print_board(locations, og_color)
     highlight_space(locations[:curr], locations[:prev], og_color)
