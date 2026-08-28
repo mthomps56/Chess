@@ -11,14 +11,14 @@ class Space
   def initialize(color, piece, symbol = '')
     @piece = piece
     @symbol = symbol 
-    @background = "#{symbol}  ".colorize(background: color)
+    @background = " #{symbol} ".colorize(background: color)
     @color = color
   end
 
   def update_space(piece)
     @piece = piece
     @symbol = piece.symbol
-    @background = "#{symbol}  ".colorize(background: color)
+    @background = " #{symbol} ".colorize(background: color)
   end
 
   def print_space

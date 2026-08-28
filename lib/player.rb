@@ -52,11 +52,35 @@ class Player
     end
     puts "curr: #{curr_location}, prev: #{prev_location}"
     locations = { curr: curr_location, prev: prev_location }
-    #choice = confirm_piece()
-    #return locations if choice
   end
 
-  def navigate(curr_location)
+  def get_in_play_pieces(player_pieces)
+    active_pieces = player_pieces.map do |key, piece|
+      piece.location if piece.active.eql?(true)
+    end
+  end
+
+  def navigate(active_pieces)
+    user_input.loop do |key|
+      current_piece_selection = (current_piece_selection.length + 1) / 2
+      next
+      current_piece_selection = case key
+        when 'a', 'left'
+
+        when 's', 'down'
+          
+        when 'd', 'down'
+          
+        when 'w', 'up'
+
+        else
+          puts "use [a] [s] [d] [w] or the arrow keys"
+          next
+        end
+    end
+  end
+
+  def _navigate(curr_location)
     user_input.loop do |key|
       key = key.to_s
       new_location = case key
@@ -78,15 +102,6 @@ class Player
     end
   end
 
-  def get_locations(piece_choices, new_location)
-    piece_choices = piece_choices.map { |key, value| piece_choices[key] } 
-    piece_locations = piece_choices.map { |indice, index| indice.location }
-  end
-
-  def get_active_pieces
-    piece_choices = pieces.select { |name, piece| piece.active }
-  end
-  
   # Keeps the player cursor in bounds during piece selection.
   def in_bounds?(loc)       # loc is location
     valid_x = loc[0] <= BOUNDS[:HIGH] && loc[0] >= BOUNDS[:LOW] ? true : false
