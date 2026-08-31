@@ -7,10 +7,10 @@ class King < Piece
   include ChessPieces
   attr_accessor :mv, :v, :name, :owner
 
-  MOVES = { 
-      left_up: [-1, 1],    right_up: [1, 1],
+  MOVES = {
+    left_up: [-1, 1], right_up: [1, 1],
     left_down: [-1, -1], right_down: [1, -1],
-           up: [0, 1],         down: [0, -1]
+    up: [0, 1], down: [0, -1]
   }
 
   def initialize(player)
@@ -21,4 +21,3 @@ class King < Piece
     @mv = King::MOVES
   end
 end
-

@@ -16,17 +16,16 @@ class Game
     color = board.spaces[curr_space].color
     board.spaces[curr_space].piece = nil
     board.spaces[curr_space].symbol = nil
-    board.spaces[curr_space].background = "   ".colorize(background: color)
+    board.spaces[curr_space].background = '   '.colorize(background: color)
 
     puts "new_space: #{new_space}"
 
     board.spaces[new_space].piece = piece
     board.spaces[new_space].symbol = piece.symbol
-    board.spaces[new_space].background = 
+    board.spaces[new_space].background =
       "#{piece.symbol} ".colorize(background: color)
 
     puts board.spaces[new_space].piece.location
     board.spaces[new_space].color = color
   end
 end
-

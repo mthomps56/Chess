@@ -15,13 +15,12 @@ class FenLoad
   def get_string
     file.readline.chomp
   end
-  
+
   # Split the FEN string in to an array of strings.
   def split_string
     self.fen_array = fen_string.split('/')
   end
 
-  
   def process_fen_array
     new_fen_array = []
     fen_array.each do |line|
@@ -34,7 +33,7 @@ class FenLoad
     line.each_char do |char|
       if (1..8).include?(char.to_i)
         blanks = ''
-        char.to_i.times { |i| blanks += '*' }
+        char.to_i.times { |_i| blanks += '*' }
         new_fen_line << blanks
       else
         new_fen_line << char
@@ -43,4 +42,3 @@ class FenLoad
     new_fen_line
   end
 end
-

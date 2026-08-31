@@ -8,7 +8,6 @@ require './pieces/queen'
 require './pieces/king'
 
 class Pieces
-
   def initialize
     @pawn   = Array(8) { Pawn.new(player, location) }
 
@@ -19,5 +18,4 @@ class Pieces
     @queen  = Queen.new(player, location)
     @king   = King.new(player, location)
   end
-
 end

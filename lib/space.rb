@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 require 'colorize'
-require_relative './pieces/utf_codes.rb'
+require_relative './pieces/utf_codes'
 require_relative './pieces/pieces'
 
 class Space
@@ -10,7 +11,7 @@ class Space
 
   def initialize(color, piece, symbol = '')
     @piece = piece
-    @symbol = symbol 
+    @symbol = symbol
     @background = " #{symbol} ".colorize(background: color)
     @color = color
   end
@@ -22,7 +23,6 @@ class Space
   end
 
   def print_space
-    print background 
+    print background
   end
-
 end

@@ -8,8 +8,8 @@ class Pawn < Piece
   attr_accessor :mv, :v, :name, :owner
 
   MOVES = {
-    first_move: [2, 0], move: [1, 0], 
-      take_left: [-1, 1], take_right: [1, 1]
+    first_move: [2, 0], move: [1, 0],
+    take_left: [-1, 1], take_right: [1, 1]
   }
 
   def initialize(player)
@@ -20,4 +20,3 @@ class Pawn < Piece
     @mv = Pawn::MOVES
   end
 end
-

@@ -8,16 +8,15 @@ require_relative './lib/game'
 require_relative './lib/pieces/bishop'
 require_relative './lib/pieces/pawn'
 
-ENTER = ['space', 'control_m']
+ENTER = %w[space control_m]
 player = Player.new
 board  = Board.new
-puts "hey"
+puts 'hey'
 puts board.spaces[[1, 1]].class.name
 
-until false 
+until false
   puts player.move_space
-  board.highlight_space(player.curr_location, player.prev_location)   
+  board.highlight_space(player.curr_location, player.prev_location)
   board.print_board
   puts
 end
-

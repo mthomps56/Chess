@@ -14,7 +14,6 @@ class Game
 
   def initiate_choice(path)
     file = start_game.open_save(path)
-    fen_string = start_game.get_fen_string(file)
+    start_game.get_fen_string(file)
   end
 end
-

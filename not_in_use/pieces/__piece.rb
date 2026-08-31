@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'utf_codes.rb'
+require_relative 'utf_codes'
 
 class Piece
   include ChessPieces
-  attr_accessor :player 
+  attr_accessor :player
 
   def initialize(player)
     @player = player
   end
 end
-
-

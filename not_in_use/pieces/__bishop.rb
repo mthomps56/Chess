@@ -8,8 +8,8 @@ class Bishop < Piece
   attr_accessor :mv, :v, :name, :owner
 
   MOVES = {
-        up_left: [-1, 1],    up_right: [1, 1], 
-      down_left: [-1, -1], down_right: [1, -1]
+    up_left: [-1, 1], up_right: [1, 1],
+    down_left: [-1, -1], down_right: [1, -1]
   }
 
   def initialize(player)
@@ -20,4 +20,3 @@ class Bishop < Piece
     @mv = Bishop::MOVES
   end
 end
-

@@ -8,10 +8,10 @@ class Knight < Piece
   attr_accessor :mv, :v, :name, :owner
 
   MOVES = {
-       left_up: [-2, 1],    up_left:  [-1, 2], 
-      right_up: [2, 1],     up_right: [1, 2],
-     left_down: [-2, -1], down_left:  [-1, -2], 
-    right_down: [2, -1],  down_right: [1, -2]
+    left_up: [-2, 1], up_left:  [-1, 2],
+    right_up: [2, 1], up_right: [1, 2],
+    left_down: [-2, -1], down_left:  [-1, -2],
+    right_down: [2, -1], down_right: [1, -2]
   }
 
   def initialize(player)
@@ -22,4 +22,3 @@ class Knight < Piece
     @mv = Knight::MOVES
   end
 end
-

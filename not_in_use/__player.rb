@@ -5,7 +5,6 @@ require 'remedy'
 include Remedy
 
 class Player
-
   BOUNDS = { HIGH: 8, LOW: 1 }
 
   attr_accessor :curr_location, :prev_location, :user_input, :pawn
@@ -30,16 +29,16 @@ class Player
 
   def move_space(bounds = false)
     new_location = navigate
-    bounds = in_bounds?(new_location) ? true : false
+    bounds = in_bounds?(new_location) || false
     puts bounds
-    unless bounds
-#      self.curr_location =  prev_location
-#      puts; puts "after 'unless bounds: curr=#{curr_location}, prev=#{prev_location}"
-      move_space
-    else
+    if bounds
       self.prev_location = curr_location
       self.curr_location = new_location
       puts "after else: prev_location=#{prev_location}, curr=#{curr_location}"
+    else
+      #      self.curr_location =  prev_location
+      #      puts; puts "after 'unless bounds: curr=#{curr_location}, prev=#{prev_location}"
+      move_space
     end
   end
 
@@ -47,19 +46,19 @@ class Player
     user_input.loop do |key|
       key = key.to_s
       new_location = case key
-      when 'a', 'left'
-        [curr_location[0] +  LEFT[0], curr_location[1] +  LEFT[1]]
-      when 's', 'right'
-        [curr_location[0] +  DOWN[0], curr_location[1] +  DOWN[1]]
-      when 'd', 'right'
-        [curr_location[0] + RIGHT[0], curr_location[1] + RIGHT[1]]
-      when 'w', 'up'
-        [curr_location[0] +    UP[0], curr_location[1] +    UP[1]]
-      else 
-        puts "USE [a] [s] [d] [w] or the ARROW keys."
-        next
-      end
-      return new_location 
+                     when 'a', 'left'
+                       [curr_location[0] +  LEFT[0], curr_location[1] +  LEFT[1]]
+                     when 's', 'right'
+                       [curr_location[0] +  DOWN[0], curr_location[1] +  DOWN[1]]
+                     when 'd', 'right'
+                       [curr_location[0] + RIGHT[0], curr_location[1] + RIGHT[1]]
+                     when 'w', 'up'
+                       [curr_location[0] + UP[0], curr_location[1] + UP[1]]
+                     else
+                       puts 'USE [a] [s] [d] [w] or the ARROW keys.'
+                       next
+                     end
+      return new_location
     end
   end
 
@@ -68,5 +67,4 @@ class Player
     valid_y = loc[1] <= BOUNDS[:HIGH] && loc[1] >= BOUNDS[:LOW] ? true : false
     valid_x && valid_y ? (return true) : (return false)
   end
-
 end

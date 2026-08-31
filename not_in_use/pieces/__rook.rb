@@ -19,4 +19,3 @@ class Rook < Piece
     @mv = Rook::MOVES
   end
 end
-
