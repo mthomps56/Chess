@@ -8,15 +8,16 @@ require_relative './lib/board'
 require_relative './lib/space'
 require_relative './lib/player'
 
-player_1 = Player.new(1)
-player_2 = Player.new(2)
-players = [player_1, player_2]
-
 loader = FenLoad.new('./lib/fen/saves/new_game.fen') 
-game = Game.new
-b = Board.new(loader.fen_array)
+board  = Board.new(loader.fen_array)
 
-active_pieces = player_1.get_in_play_pieces(b.player_1_pieces)
+player_1 = Player.new(1, board.player_1_pieces)
+player_2 = Player.new(2, board.player_2_pieces)
+players  = [player_1, player_2]
+while true
+  players.each { |player| player.navigate(board) }
+end
+
 #while true
 ##  locations = player_1.choose_space
 #  b.print_board(locations, player_1.identity)
