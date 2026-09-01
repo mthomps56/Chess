@@ -85,16 +85,16 @@ class Board
   end
 
   # Used to highlight a piece when curser is over it.
-  def highlight_space(current_piece_location, previous_piece_location, og_color)
-    spaces[current_piece_location].background =
-      spaces[current_piece_location].background.colorize(color: :light_green)
-    un_highlight_space(previous_piece_location, og_color)
+  def highlight_space(curr_location, prev_location, og_color)
+    spaces[curr_location].background =
+      spaces[curr_location].background.colorize(color: :light_green)
+    un_highlight_space(prev_location, og_color)
   end
 
   # Un-highlights cursor location when it moves.
-  def un_highlight_space(previous_piece_location, og_color)
-#    og_color = og_color.eql?(1) ? Piece::PLAYER_1_COLOR : Piece::PLAYER_2_COLOR
-    spaces[previous_piece_location].background =
-      spaces[previous_piece_location].background.colorize(color: og_color)
+  def un_highlight_space(prev_location, og_color)
+    og_color = og_color.eql?(1) ? Piece::PLAYER_1_COLOR : Piece::PLAYER_2_COLOR
+    spaces[prev_location].background =
+      spaces[prev_location].background.colorize(color: og_color)
   end
 end

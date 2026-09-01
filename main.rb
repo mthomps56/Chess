@@ -15,7 +15,15 @@ board  = Board.new(loader.fen_array)
 player_1 = Player.new(1, board.player_1_pieces)
 player_2 = Player.new(2, board.player_2_pieces)
 players  = [player_1, player_2]
-players.each { |player| player.navigate(board) } while true
+while true
+  players.each do |player| 
+    player.navigate(board) do |chosen_piece_location, previous_piece_location| 
+      board.print_board(player.chosen_piece_location, 
+                        player.previous_piece_location, 
+                        player.piece_color)
+    end
+  end
+end
 
 # while true
 ##  locations = player_1.choose_space
