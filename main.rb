@@ -17,10 +17,9 @@ player_2 = Player.new(2, board.player_2_pieces)
 players  = [player_1, player_2]
 while true
   players.each do |player| 
-    player.navigate(board) do |chosen_piece_location, previous_piece_location| 
-      board.print_board(player.chosen_piece_location, 
-                        player.previous_piece_location, 
-                        player.piece_color)
+    player.navigate(board) do |chosen_piece, previously_chosen_piece| 
+      puts "chosen_piece: #{chosen_piece}"
+      board.print_board(chosen_piece, previously_chosen_piece)
     end
   end
 end

@@ -9,15 +9,19 @@ class Space
 
   attr_accessor :background, :color, :piece, :symbol, :original_symbol
   attr_reader :original_symbol
-  def initialize(color, piece)
+  def initialize(color, piece, symbol = '')
     @piece = piece
+    @symbol = symbol
+    @original_symbol = symbol
+    @blank_symbol = ''
     @background = " #{symbol} ".colorize(background: color)
     @color = color
   end
 
   def update_space(piece)
-    self.piece = piece
-    self.background = " #{piece.symbol} ".colorize(background: color)
+    @piece = piece
+    @symbol = piece.symbol
+    @background = " #{symbol} ".colorize(background: color)
   end
 
   def print_space

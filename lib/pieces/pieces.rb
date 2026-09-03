@@ -11,11 +11,6 @@ class Piece
 
   attr_accessor :type, :symbol, :moves, :owner, :location, :active
 
-  PLAYER_1_COLOR = :light_yellow
-  PLAYER_2_COLOR = :blue
-  LOW = 0
-  HIGH = 7
-
   def initialize(fen_char, location)
     @owner    = find_owner(fen_char)
     @type     = find_type(fen_char)
@@ -43,8 +38,6 @@ class Piece
     end
   end
 
-  def calculate_possible_coordinates(curr_location); end
-
   def find_symbol(type)
     PIECES.each { |name, char| return char if name.start_with?(type) }
   end
@@ -56,4 +49,14 @@ class Piece
   def find_owner(fen_char)
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
+
+  def change_color_to_highlight
+    self.symbol.colorize(background: :light_green)
+  end
+
+  def back_to_original_color
+    color = owner.eql? 1 ? :blue : :light_yellow
+    self.symbol.colorize(background: color)
+  end
+
 end
