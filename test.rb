@@ -1,7 +1,7 @@
-x = { one: 'one', two: 'two', three: 'three' }
 
-def method(hash)
-  puts hash[:one]
+X_COL = (0..7).to_a
+Y_ROW = (0..7).to_a
+
+string_array = ['abcd', '1234']
+def thing
 end
-
-method(x)

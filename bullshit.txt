@@ -1,0 +1,15 @@
+total 324K
+-rw-rw-r-- 1 mt mt    0 Sep  9 18:14 bullshit.txt
+-rw-rw-r-- 1 mt mt 271K Aug 15 11:10 chess_rules.jpeg
+-rw-rw-r-- 1 mt mt  499 Sep  6 19:59 file_structure.txt
+-rw-rw-r-- 1 mt mt  154 Aug 31 00:04 Gemfile
+-rw-rw-r-- 1 mt mt 2.6K Jul  7 01:09 Gemfile.lock
+drwxrwxr-x 4 mt mt 4.0K Sep  9 16:10 lib
+-rw-rw-r-- 1 mt mt  475 Aug 31 00:04 __main.rb
+-rw-rw-r-- 1 mt mt 1.2K Sep  9 13:46 main.rb
+-rw-rw-r-- 1 mt mt 2.0K Sep  7 19:49 map2.txt
+-rw-rw-r-- 1 mt mt 4.5K Aug 19 00:37 map.txt
+drwxrwxr-x 4 mt mt 4.0K Aug 15 11:10 not_in_use
+-rw-rw-r-- 1 mt mt   53 Jun 24 10:32 README.md
+drwxrwxr-x 2 mt mt 4.0K Aug 15 11:10 spec
+-rw-rw-r-- 1 mt mt   88 Sep  7 21:49 test.rb

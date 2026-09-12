@@ -2,12 +2,13 @@
 
 require 'colorize'
 require 'pry-byebug'
-require_relative 'space'
+require_relative './space'
 require_relative 'pieces/pieces'
 require_relative 'pieces/utf_codes'
 require_relative './fen/load_fen'
 require_relative './player'
 
+#LINE 8
 class Board
   BOARD_LENGTH = 7
   X_ROW = (0..7).to_a
@@ -15,40 +16,31 @@ class Board
   WHITE_SPACES_EVEN = [0, 2, 4, 6]
   WHITE_SPACES_ODD  = [1, 3, 5, 7]
 
-  attr_accessor :spaces, :player_1_pieces, :player_2_pieces, :pieces
+  attr_accessor :spaces, :player_1_pieces, :player_2_pieces 
 
   def initialize(save)
     @spaces = {}
-    @pieces = {}            # pieces before being sorted by player
-    @player_1_pieces = {}   # after sorting
-    @player_2_pieces = {}   # ^^^^^^^^^^^^^
+    @player_1_pieces = []  # Use when picking a piece while using navigate.  
+    @player_2_pieces = []   
     make_board(save)
   end
   
-  # Used in 'make_board'
-  def do_player_piece_assignment(piece)
-    collect_pieces(piece)
-    sort_pieces
-  end
-  
-  # Used in 'do_player_piece_assignment'
-  def collect_pieces(piece)
-    return if piece.type.eql?('EMPTY')
-
-    count = pieces.keys.select { |key| key.include?(piece.type) }
-    pieces[piece.type + '_' + count.length.to_s] = piece
-  end
-  # Used in 'do_player_piece_assignment'
-  def sort_pieces
-    pieces.each do |key, piece|
-      if key.eql?(key.upcase)
-        (player_1_pieces[key] = piece)
-      else
-        (player_2_pieces[key] = piece)
+  public
+ 
+  # Ran inside a block that is called each time a piece is moved.
+  def print_board #(board)#(chosen_piece, previously_chosen_piece)
+    puts; puts;
+    Y_COL.each do |y|
+      X_ROW.each do |x|
+        print spaces[[y, x]].space
+        puts if x.eql? BOARD_LENGTH
       end
     end
   end
 
+  private
+  
+  # LINE 56
   # Fill the board with spaces and each space with it's piece (or lack of)
   # based on the contents of the FEN data.
   def make_board(save) # 'save' arg is a fen string.
@@ -57,35 +49,31 @@ class Board
       X_ROW.each do |x|
         char = save[y][x]
         color = white_space.include?(x) ? :grey : :white
-        piece = Piece.new(char, [x, y])
-        player = char.eql? char.upcase ? #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        spaces[[x, y]] = Space.new(color, piece)#, piece.symbol)
-        do_player_piece_assignment(piece)
+        piece = Piece.new(char, [y, x])
+        send_created_piece_to_players_array(piece)
+        distribute_piece_to_spaces(piece, color, y, x)
       end
-    end
+    end  
   end
 
-  # Run after each player's turn.
-  def print_board(chosen_piece, previously_chosen_piece)
-    highlight_space(chosen_piece, previously_chosen_piece)
-    Y_COL.each do |y|
-      X_ROW.each do |x|
-        spaces[[x, y]].print_space
-        puts if x.eql? BOARD_LENGTH
-      end
+  def send_created_piece_to_players_array(piece)
+    return if piece.type.eql? ('EMPTY')
+    if piece.type.eql? (piece.type.upcase)
+      self.player_1_pieces << piece
+    elsif piece.type.eql? (piece.type)
+      self.player_2_pieces << piece 
     end
   end
+ 
+  def distribute_piece_to_spaces(piece, color, x, y)
+    self.spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(1)
+    self.spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(2)  
+  end
 
-  # Used to highlight a piece when curser is over it.
-  def highlight_space(chosen_piece, previously_chosen_piecer)
-    chosen_piece.change_color_to_highlight            # Method of Piece
-    puts chosen_piece.symbol
-    spaces[chosen_piece.location].update_space(chosen_piece) # Method of Space
+    def highlight_space(chosen_piece, previously_chosen_piece)
   end
 
   # Un-highlights cursor location when it moves.
   def un_highlight_space(previously_chosen_piece)
-    previously_chosen_piece.symbol = ''
-    spaces[chosen_piece.location].update_space(previously_chosen_piece)
   end
 end

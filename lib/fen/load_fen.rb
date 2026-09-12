@@ -9,8 +9,14 @@ class FenLoad
     @file = File.new(path, 'r')
     @fen_string = get_string
     @fen_array = split_string
-    self.fen_array = process_fen_array
+    process_fen_array
   end
+
+#  def show_fen_string_class
+#    puts self.fen_string.class
+#  end
+  
+  private
 
   def get_string
     file.readline.chomp

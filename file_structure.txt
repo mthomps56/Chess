@@ -1,0 +1,22 @@
+lib/
+├── __board.rb
+├── board.rb
+├── fen
+│   ├── load_fen.rb
+│   └── saves
+│       └── new_game.fen
+├── instructions.rb
+├── key_press_reference.txt
+├── old_navigate.rb
+├── output.txt
+├── pieces
+│   ├── moves.rb
+│   ├── pieces.rb
+│   └── utf_codes.rb
+├── __player.rb
+├── player.rb
+├── __space.rb
+├── space.rb
+└── unused_board_methods.rb
+
+4 directories, 16 files

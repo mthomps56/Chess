@@ -9,15 +9,15 @@ class Piece
   include Moves
   include ChessPieces
 
-  attr_accessor :type, :symbol, :moves, :owner, :location, :active
+  attr_accessor :type, :symbol, :moves, :owner, :active, :location
 
   def initialize(fen_char, location)
     @owner    = find_owner(fen_char)
     @type     = find_type(fen_char)
     @symbol   = find_symbol(type)
     @moves    = find_moves(type)
-    @location = location
     @active   = true
+    @location = location
   end
 
   def find_type(fen_char)
@@ -38,6 +38,9 @@ class Piece
     end
   end
 
+  public
+
+  private
   def find_symbol(type)
     PIECES.each { |name, char| return char if name.start_with?(type) }
   end
@@ -48,15 +51,6 @@ class Piece
 
   def find_owner(fen_char)
     fen_char.eql?(fen_char.upcase) ? 1 : 2
-  end
-
-  def change_color_to_highlight
-    self.symbol.colorize(background: :light_green)
-  end
-
-  def back_to_original_color
-    color = owner.eql? 1 ? :blue : :light_yellow
-    self.symbol.colorize(background: color)
   end
 
 end

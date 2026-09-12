@@ -1,20 +1,23 @@
-INTRUCTIONS = <<~HEREDOC
+module Messages
+
+INSTRUCTIONS = <<~HEREDOC
 
   Welcome to CHESS. To begin a new game press [1].
   To continue the last game press [2]
 
   During Game:
 
-  Use   [w]    or       [Up]#{'  '}
-     [a][s][d]    [Left Down Right] arrows to highlight a piece to move.
+  Use [a] and [w] or {Left}  and {Up}   for previous piece
+  Use [d] and [s] or {Right} and {Down} for next     piece
 
-  CONFIRM piece by hitting [ENTER] or [SPACE].
+  CONFIRM piece by hitting [ENTER] or [SPACE]
 
-  Possible moves available will be highlighted. Choose space to move to.
+  Possible moves available will be highlighted.
 
-  Hit [ENTER] or [SPACE] to move piece. Player 2 repeats this process.
-
-  GL HF
-
-
+  Player 2 repeats this process.
 HEREDOC
+end
+
+#  GL HF
+
+

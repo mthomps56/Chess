@@ -1,0 +1,53 @@
+-------------------------------------------------------------------------------
+main.rb
+
+#LINE 17
+>Load fen object 'loader'     
+-------------------------------------------------------------------------------
+board.rb
+
+Load Board object 'board'.Takes fen_array as arg
+  make_board called at initialization      board <> #LINE 56 main <> #LINE 
+    has fen object, called one letter at time. 'char'
+      >piece created based on fen char and x, y coordinates
+      >Spaces loaded with appropriate pieces
+
+    >send created_piece to player array; player_1_pieces, called each iteration.
+    >distribute_piece_spaces; called each iteration to load pieces to spaces.
+  >Player objects 'player_1' and 'player_2'. Arguments '1' and '2' and board
+    objects piece's made for for each player. 
+    >Make array of players.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check list of what's happened....
+
+    ~~~~hh==~main.rb LINE #17~~~~~
+  --fen array loaded       
+    ~~~~~lib/fen/load_fen.rb~~~~~
+    --get file              
+      --turn into 'fen_string'
+        --turn 'fen_string' in to array. Use array to load board in 'make_board'
+
+    ~~~~~lib/board.rb~~~~~
+  --board initialized
+    --making the white space of the chessboard is done with 'WHITE_SPACE_EVEN'
+      and 'WHITE_SPACE_ODD' arrays
+      
+      LINE #56
+    --board 'make_board' created out of Spaces which contain Pieces or EMPTY 
+      pieces
+      --'char' is taken from 'save' arg iterated by 'x' and 'y' coordinates.
+      --'color chosen by 'white_space' variable 
+        --'WHITE_SPACE_EVEN' and 'WHITE_SPACE_ODD' make checkers of board.
+      --'piece' made with the parameter 'save' arg is fen_array 'save[x, y]'
+      LINE #66
+      --'send_created_piece_to_player_array' 
+      --'distribute_piece_to_space'  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
+
+-------------------------------------------------------------------------------
+main.rb
+
+Make array of players
+
+<GAME_LOOP>
+
