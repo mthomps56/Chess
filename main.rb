@@ -26,10 +26,10 @@ player_1 = Player.new(1)
 player_2 = Player.new(2)
 players  = [player_1, player_2]
 
-board.print_board
+board.print_board(current_piece = nil, previous_piece = nil)
 players[0].get_active_pieces( board.player_1_pieces, board.player_2_pieces )
-active_piece_count_length = players[0].active_pieces.length
-players[0].navigate(board, players[0].active_pieces, piece_chosen = false) do
-  board.print_board
+players[0].get_active_piece_locations(board)
+players[0].navigate(board) do |curr, prev| 
+  board.highlight_piece(curr, prev) { board.print_board(curr, prev) }
 end
 

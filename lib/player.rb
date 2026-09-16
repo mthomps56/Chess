@@ -29,7 +29,8 @@ class Player
   # Public method. Used in main.
   # The first turn starts at the middle most piece. 'input_loop' takes key 
   # press. Changes piece location by index. 
-  def navigate(board, active_pieces, piece_chosen = false )
+
+  def navigate(players_piece_chosen = false )
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
     user_input.loop do |key| 
@@ -39,15 +40,23 @@ class Player
         when 'd', 'right' then curr_piece_index += 1
         when 'w', 'up'    then curr_piece_index -= 1
         when 'control_m', 'space' then return curr_piece_index 
-          player_piece_chosen = true
+          players_piece_chosen = true
           break if player_piece_chosen
         else
           puts 'use [a] [s] [d] [w] or the arrow keys' 
           next
       end
+      current_location = active_pieces[curr_piece_index].location
+      previous_location = current_location
+      yield(current_location, previous_location)
       first_turn = false
-      yield if block_given?
-      return number_of_active_pieces if player_piece_chosen
+      return current_location if players_piece_chosen.eql? true
+    end
+  end
+
+  def get_active_piece_locations(board, x_col = (0..7).to_a, y_row = (0..7).to_a)
+    y_row.each do |y|
+      x_col.each { |x| board.spaces[[y, x]].piece.location = [y, x] }
     end
   end
 
@@ -63,5 +72,4 @@ class Player
     space = board.spaces[selected_location]  
     space.piece 
   end
-
 end
