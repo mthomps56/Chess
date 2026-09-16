@@ -43,9 +43,6 @@ class Board
     unless chosen_location.nil?
       spaces[chosen_location].symbol = 
         spaces[chosen_location].symbol.colorize(color: :light_green)
-      spaces[chosen_location].space = 
-        " #{spaces[chosen_location]} ".colorize(background: 
-                                                spaces[chosen_location].color)
       print "#{spaces[chosen_location].symbol}: #{spaces[chosen_location].piece.type}"
       print "#{chosen_location}"
     end
