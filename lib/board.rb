@@ -28,33 +28,35 @@ class Board
   public
  
   # Ran inside a block that is called each time a piece is moved.
-  def print_board(current_location = nil , previous_location = nil)
-    highlight_piece(current_location, previous_location)
-    puts; puts;
+  def print_board(current_location = nil)
+    highlight_piece(current_location)
     Y_COL.each do |y|
       X_ROW.each do |x|
         spaces[[y, x]].print_space
         puts if x.eql? BOARD_LENGTH
       end
     end
-  end
-
-  def highlight_piece(chosen_location, previous_location)
-    unless chosen_location.nil?
-      spaces[chosen_location].symbol = 
-        spaces[chosen_location].symbol.colorize(color: :light_green)
-      print "#{spaces[chosen_location].symbol}: #{spaces[chosen_location].piece.type}"
-      print "#{chosen_location}"
-    end
+    un_highlight_piece(current_location)
     puts; puts;
   end
 
+  def highlight_piece(chosen_location)
+    unless chosen_location.nil?
+      spaces[chosen_location].symbol = 
+        spaces[chosen_location].symbol.colorize(color: :light_green)
+      spaces[chosen_location].update_space
+      print "#{spaces[chosen_location].symbol}: #{spaces[chosen_location].piece.type}"
+      print "#{chosen_location}"
+    end
+    puts
+  end
+
   # Un-highlights cursor location when it moves.
-  def un_highlight_space(previous_piece)
-    if previous_piece.owner.eql?(1)
-      previous_piece.colorize(color: :blue) 
-    elsif previous_piece.owner.eql?(2)
-      previous_piece.colorize(color: :light_yellow)
+  def un_highlight_piece(current_location)
+    unless current_location.nil?
+      spaces[current_location].symbol = 
+        spaces[current_location].symbol.colorize(color: :blue)
+      spaces[current_location].update_space
     end
   end
 

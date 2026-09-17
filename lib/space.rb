@@ -19,4 +19,8 @@ class Space
   def print_space
      print space
   end
+
+  def update_space
+    self.space = " #{symbol} ".colorize(background: color)
+  end
 end

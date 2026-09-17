@@ -33,6 +33,7 @@ class Player
   def navigate(players_piece_chosen = false )
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
+    previous_location = active_pieces[curr_piece_index].location
     user_input.loop do |key| 
       curr_piece_index = case key.to_s 
         when 'a', 'left'  then curr_piece_index -= 1
@@ -47,10 +48,9 @@ class Player
           next
       end
       current_location = active_pieces[curr_piece_index].location
-      previous_location = current_location
       yield(current_location, previous_location)
       first_turn = false
-      return current_location if players_piece_chosen.eql? true
+#      return current_location if players_piece_chosen.eql? true
     end
   end
 
