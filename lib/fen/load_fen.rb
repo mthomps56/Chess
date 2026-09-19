@@ -12,10 +12,10 @@ class FenLoad
     process_fen_array
   end
 
-#  def show_fen_string_class
-#    puts self.fen_string.class
-#  end
-  
+  #  def show_fen_string_class
+  #    puts self.fen_string.class
+  #  end
+
   private
 
   def get_string

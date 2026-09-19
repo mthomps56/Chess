@@ -15,7 +15,7 @@ class Player
   DOWN  = [0, 1]
   UP    = [0, -1]
 
-  attr_accessor :user_input, :active_pieces 
+  attr_accessor :user_input, :active_pieces
   attr_reader   :identity
 
   def initialize(identity)
@@ -23,34 +23,32 @@ class Player
     @user_input    = Interaction.new
     @active_pieces = nil
   end
-  
-  public
 
   # Public method. Used in main.
-  # The first turn starts at the middle most piece. 'input_loop' takes key 
-  # press. Changes piece location by index. 
+  # The first turn starts at the middle most piece. 'input_loop' takes key
+  # press. Changes piece location by index.
 
-  def navigate(players_piece_chosen = false )
+  def navigate(_players_piece_chosen = false)
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
     previous_location = active_pieces[curr_piece_index].location
-    user_input.loop do |key| 
-      curr_piece_index = case key.to_s 
-        when 'a', 'left'  then curr_piece_index -= 1
-        when 's', 'down'  then curr_piece_index += 1
-        when 'd', 'right' then curr_piece_index += 1
-        when 'w', 'up'    then curr_piece_index -= 1
-        when 'control_m', 'space' then return curr_piece_index 
-          players_piece_chosen = true
-          break if player_piece_chosen
-        else
-          puts 'use [a] [s] [d] [w] or the arrow keys' 
-          next
-      end
+    user_input.loop do |key|
+      curr_piece_index = case key.to_s
+                         when 'a', 'left'  then curr_piece_index -= 1
+                         when 's', 'down'  then curr_piece_index += 1
+                         when 'd', 'right' then curr_piece_index += 1
+                         when 'w', 'up'    then curr_piece_index -= 1
+                         when 'control_m', 'space'
+                           current_location = active_pieces[curr_piece_index].location
+                           return current_location
+                         else
+                           puts 'use [a] [s] [d] [w] or the arrow keys'
+                           next
+                         end
       current_location = active_pieces[curr_piece_index].location
       yield(current_location, previous_location)
       first_turn = false
-#      return current_location if players_piece_chosen.eql? true
+      #      return current_location if players_piece_chosen.eql? true
     end
   end
 
@@ -68,8 +66,8 @@ class Player
   private
 
   # Takes in current state of the board and fetches piece at that location.
-  def locate_piece(board, selected_location) 
-    space = board.spaces[selected_location]  
-    space.piece 
+  def locate_piece(board, selected_location)
+    space = board.spaces[selected_location]
+    space.piece
   end
 end
