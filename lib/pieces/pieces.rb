@@ -56,15 +56,45 @@ class Piece
     return possible_locations
   end
   
-  def get_legal_iterative_moves(possible_locations)
+  # Moves for iterative piece. 
+  # Used in 'Player' class; method: 'choose_space_to_move_to'
+  def get_iterative_moves(chosen_location)
+    possible_moves = []
+    moves.each do |key, dir| 
+      possible_moves << take_step(chosen_location, dir, direction = [])
+    end
+    return possible_moves
   end
-  def take_step(curr, dir, spaces, direction = [])
+
+  # Takes recursive array's of move sets, flattens them, 
+  # and re-organizes them in to [y, x] coordinates. 
+  # Used in 'Player' class; method: 'choose_space_to_move_to'
+  def flatten_possible_moves(possible_moves)
+    flattened_possible_moves = possible_moves.flatten
+    print "flattened_possible_moves: #{flattened_possible_moves}, length: #{flattened_possible_moves.length}"; puts;
+    y_coord = 0; x_coord = y_coord + 1; possible_moves_array = []
+    while x_coord <= flattened_possible_moves.length
+      pair = [flattened_possible_moves[y_coord], flattened_possible_moves[x_coord]]
+#      print "y_coord: #{y_coord}, x_coord: #{x_coord}"; puts;
+      possible_moves_array << pair
+      y_coord = y_coord + 2; x_coord = x_coord + 2;
+    end
+    puts; print possible_moves_array
+    return possible_moves_array
+  end
+
+  def take_step(curr, dir, direction = [])
     position = [curr[0] + dir[0], curr[1] + dir[1]]
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
-    empty    = spaces[position].nil?
-    print "take step: #{position}, #{x_scope}, #{y_scope}, #{empty}"
+    if x_scope && y_scope
+      direction << position
+      take_step(position, dir, direction)
+    else
+      return direction
+    end
   end
+
   private
 
   def find_type(fen_char)

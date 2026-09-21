@@ -27,23 +27,25 @@ players  = [player_1, player_2]
 
 board.print_board(nil)
 players[0].get_active_pieces(board.player_1_pieces, board.player_2_pieces)
-players[0].get_active_piece_locations(board)
-chosen_location = players[0].navigate(board) do |current_location|
+chosen_location = players[0].navigate do |current_location|
   board.print_board(current_location)
 end
 
-move_directions = board.spaces[chosen_location].piece.get_movement_directions
-print "movement_directions: #{move_directions}"; puts;
+players[0].choose_space_to_move_to(chosen_location, board.spaces)
+#move_directions = board.spaces[chosen_location].piece.get_movement_directions
+#print "movement_directions: #{move_directions}"; puts;
 
-locations = board.spaces[chosen_location].piece.get_initial_moves(move_directions, chosen_location)
-print "locations: #{locations}"; puts;
+#locations = board.spaces[chosen_location].piece.get_initial_moves(move_directions, chosen_location)
+#print "locations: #{locations}"; puts;
 
-possible_locations = board.spaces[chosen_location].piece.find_legal_moves(locations)
-print "possible_locations: #{possible_locations}"; puts;
+#possible_locations = board.spaces[chosen_location].piece.find_legal_moves(locations)
+#print "possible_locations: #{possible_locations}"; puts;
 
-spaces = board.spaces
-board.spaces[chosen_location].piece.take_step(chosen_location, [-1, 1], spaces, direction = [])
+#x = board.spaces[chosen_location].piece.get_iterative_moves(chosen_location)
+#print x
 
+#direction = board.spaces[chosen_location].piece.take_step(chosen_location, [-1, 1], direction = [])
+#print "recursive #{direction}"
 #print board.spaces[chosen_location].piece.get_legal_moves(movement_directions, 
 #                                                           chosen_location)
 
