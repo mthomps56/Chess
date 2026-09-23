@@ -71,11 +71,9 @@ class Piece
   # Used in 'Player' class; method: 'choose_space_to_move_to'
   def flatten_possible_moves(possible_moves)
     flattened_possible_moves = possible_moves.flatten
-    print "flattened_possible_moves: #{flattened_possible_moves}, length: #{flattened_possible_moves.length}"; puts;
     y_coord = 0; x_coord = y_coord + 1; possible_moves_array = []
     while x_coord <= flattened_possible_moves.length
       pair = [flattened_possible_moves[y_coord], flattened_possible_moves[x_coord]]
-#      print "y_coord: #{y_coord}, x_coord: #{x_coord}"; puts;
       possible_moves_array << pair
       y_coord = y_coord + 2; x_coord = x_coord + 2;
     end

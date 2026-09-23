@@ -25,22 +25,21 @@ class Board
     make_board(save)
   end
 
-  # Ran inside a block that is called each time a piece is moved.
-  def print_board(current_location = nil)
-    highlight_piece(current_location)
-    Y_COL.each do |y|
-      X_ROW.each do |x|
-        spaces[[y, x]].print_space
-        puts if x.eql? BOARD_LENGTH
-      end
-    end
-    un_highlight_piece(current_location)
-    puts
-    puts
+#-CHOOSING-PIECE----------------------------------------------------------------
+  public
+  # Ran inside a block that is called each time a piece is moved.              
+  def print_board(current_location = nil)                                      
+    highlight_piece(current_location)                                          
+    Y_COL.each do |y|                                                          
+      X_ROW.each do |x|                                                        
+        spaces[[y, x]].print_space                                             
+        puts if x.eql? BOARD_LENGTH                                            
+      end                                                                      
+    end                                                                        
+    un_highlight_piece(current_location); puts; puts;                          
   end
 
   private
-
   def highlight_piece(chosen_location)
     unless chosen_location.nil?
       spaces[chosen_location].symbol =
@@ -61,6 +60,25 @@ class Board
     spaces[current_location].update_space
   end
 
+#-CHOOSE-NEW-LOCATION-----------------------------------------------------------
+  public
+  def show_possible_moves_overlay(cursor_location, possible_moves_array)
+    Y_COL.each do |y|
+      X_ROW.each do |x|
+        spaces[[y, x]].available if possible_moves_array.include? [y, x]
+        highlight_available_moves(cursor_location)
+      end
+    end
+  end
+
+  private
+  # Once the possible moves for the chosen piece are found, show them with the
+  # '*' character in the possible spaces.
+  def highlight_available_moves(cursor_location)
+    print "#{cursor_location}"; puts;
+#    spaces[cursor_location].available = " * ".colorize(color: :light_green)
+  end
+#-------------------------------------------------------------------------------
   # LINE 56
   # Fill the board with spaces and each space with it's piece (or lack of)
   # based on the contents of the FEN data.

@@ -30,7 +30,7 @@ class Player
   def navigate
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
-    previous_location = active_pieces[curr_piece_index].location
+#    previous_location = active_pieces[curr_piece_index].location
     user_input.loop do |key|
       curr_piece_index = case key.to_s
                          when 'a', 'left'  then curr_piece_index -= 1
@@ -45,13 +45,34 @@ class Player
                            next
                          end
       current_location = active_pieces[curr_piece_index].location
-      yield(current_location, previous_location)
+      yield(current_location)#, previous_location)
       first_turn = false
       #      return current_location if players_piece_chosen.eql? true
     end
   end
+
+  def move_navigate(index_size, available)
+    current_index = (index_size - 1) / 2 
+    user_input.loop do |key|
+      current_index = case key.to_s
+                       when 'a', 'left'  then current_index -= 1
+                       when 's', 'down'  then current_index += 1
+                       when 'd', 'right' then current_index += 1
+                       when 'w', 'up'    then current_index -= 1
+                       when 'control_m', 'space'
+                         cursor_location = available[current_index]
+                         return cursor_location
+                       else
+                         puts 'use [a] [s] [d] [w] or the arrow keys'
+                         next
+                       end
+      cursor_location = available[current_index]  
+      print cursor_location
+      yield(cursor_location, available) if block_given?
+    end
+  end
   
-  def choose_space_to_move_to(chosen_location, spaces)
+  def process_possible_moves(chosen_location, spaces)
     moves = spaces[chosen_location].piece.get_iterative_moves(chosen_location)
     moves_flattened = spaces[chosen_location].piece.flatten_possible_moves(moves)
   end

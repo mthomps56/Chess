@@ -31,24 +31,9 @@ chosen_location = players[0].navigate do |current_location|
   board.print_board(current_location)
 end
 
-players[0].choose_space_to_move_to(chosen_location, board.spaces)
-#move_directions = board.spaces[chosen_location].piece.get_movement_directions
-#print "movement_directions: #{move_directions}"; puts;
+legal_spaces = players[0].process_possible_moves(chosen_location, board.spaces)
+legal_spaces_index = legal_spaces.length
+players[0].move_navigate(legal_spaces_index, legal_spaces)
 
-#locations = board.spaces[chosen_location].piece.get_initial_moves(move_directions, chosen_location)
-#print "locations: #{locations}"; puts;
 
-#possible_locations = board.spaces[chosen_location].piece.find_legal_moves(locations)
-#print "possible_locations: #{possible_locations}"; puts;
-
-#x = board.spaces[chosen_location].piece.get_iterative_moves(chosen_location)
-#print x
-
-#direction = board.spaces[chosen_location].piece.take_step(chosen_location, [-1, 1], direction = [])
-#print "recursive #{direction}"
-#print board.spaces[chosen_location].piece.get_legal_moves(movement_directions, 
-#                                                           chosen_location)
-
-#pp board.spaces[chosen_location].piece.iterable; puts;
-#board.spaces[chosen_location].piece.get_legal_iterative_moves
 
