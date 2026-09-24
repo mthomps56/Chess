@@ -33,7 +33,7 @@ end
 
 legal_spaces = players[0].process_possible_moves(chosen_location, board.spaces)
 legal_spaces_index = legal_spaces.length
-players[0].move_navigate(legal_spaces_index, legal_spaces)
-
-
+players[0].move_navigate(legal_spaces_index, legal_spaces) do |legal_spaces|
+  board.print_board_with_move_options(legal_spaces)
+end
 

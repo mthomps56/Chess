@@ -56,7 +56,7 @@ class Piece
     return possible_locations
   end
   
-  # Moves for iterative piece. 
+# MOVES-FOR-ITERATIVE-PIECES----------------------------------------------------
   # Used in 'Player' class; method: 'choose_space_to_move_to'
   def get_iterative_moves(chosen_location)
     possible_moves = []
@@ -92,8 +92,7 @@ class Piece
       return direction
     end
   end
-
-  private
+#-------------------------------------------------------------------------------
 
   def find_type(fen_char)
     case fen_char

@@ -21,6 +21,7 @@ module ChessPieces
     KNIGHT: 9822.chr(E).colorize(color: :blue),
     PAWN: 9823.chr(E).colorize(color: :blue),
 
-    EMPTY: ' '
+    EMPTY: ' ',
+    POTENTIAL: 42.chr(E).colorize(color: :red) # Shows space is a potential move
   }
 end

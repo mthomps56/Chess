@@ -62,11 +62,18 @@ class Board
 
 #-CHOOSE-NEW-LOCATION-----------------------------------------------------------
   public
-  def show_possible_moves_overlay(cursor_location, possible_moves_array)
+  def print_board_with_move_options(legal_moves)
+    possible_move_color = :red
     Y_COL.each do |y|
       X_ROW.each do |x|
-        spaces[[y, x]].available if possible_moves_array.include? [y, x]
-        highlight_available_moves(cursor_location)
+        if legal_moves.include? [y, x]
+          spaces[[y, x]].change_symbol_to_show_potential_move
+          spaces[[y, x]].update_space
+          spaces[[y, x]].print_space
+        else
+          spaces[[y, x]].print_space
+        end
+        puts if x.eql? BOARD_LENGTH
       end
     end
   end
@@ -78,8 +85,8 @@ class Board
     print "#{cursor_location}"; puts;
 #    spaces[cursor_location].available = " * ".colorize(color: :light_green)
   end
+
 #-------------------------------------------------------------------------------
-  # LINE 56
   # Fill the board with spaces and each space with it's piece (or lack of)
   # based on the contents of the FEN data.
   def make_board(save) # 'save' arg is a fen string.
@@ -109,4 +116,5 @@ class Board
     spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(1)
     spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(2)
   end
+#------------------------------------------------------------------------------
 end

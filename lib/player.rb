@@ -24,9 +24,6 @@ class Player
     @active_pieces = nil
   end
 
-  # Public method. Used in main.
-  # The first turn starts at the middle most piece. 'input_loop' takes key
-  # press. Changes piece location by index.
   def navigate
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
@@ -51,6 +48,7 @@ class Player
     end
   end
 
+# CHOOSING-LOCATION-TO-MOVE-TO--------------------------------------------------
   def move_navigate(index_size, available)
     current_index = (index_size - 1) / 2 
     user_input.loop do |key|
@@ -67,8 +65,8 @@ class Player
                          next
                        end
       cursor_location = available[current_index]  
-      print cursor_location
-      yield(cursor_location, available) if block_given?
+      print cursor_location; puts;
+      yield(available) if block_given?
     end
   end
   
@@ -76,13 +74,7 @@ class Player
     moves = spaces[chosen_location].piece.get_iterative_moves(chosen_location)
     moves_flattened = spaces[chosen_location].piece.flatten_possible_moves(moves)
   end
-
-  # WHY DID I MAKE THIS?
-  def get_active_piece_locations(board, x_col = (0..7).to_a, y_row = (0..7).to_a)
-    y_row.each do |y|
-      x_col.each { |x| board.spaces[[y, x]].piece.location = [y, x] }
-    end
-  end
+#-------------------------------------------------------------------------------
 
   # Used in main to update @active_pieces player attribute. 
   def get_active_pieces(player_1_pieces, player_2_pieces)

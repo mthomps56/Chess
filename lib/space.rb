@@ -17,14 +17,18 @@ class Space
     @symbol = piece.symbol
     @color  = color
     @space  = " #{symbol} ".colorize(background: color)
-    @available = " * ".colorize(background: color)
+    @available = "*".colorize(color: :red)
   end
 
   def print_space
     print space
   end
 
-  def update_space
+  def update_space(color = self.color)
     self.space = " #{symbol} ".colorize(background: color)
+  end
+
+  def change_symbol_to_show_potential_move
+    self.symbol = self.available
   end
 end
