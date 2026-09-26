@@ -47,6 +47,11 @@ class Player
       #      return current_location if players_piece_chosen.eql? true
     end
   end
+  # Used in main to update @active_pieces player attribute. 
+  def get_active_pieces(player_1_pieces, player_2_pieces)
+    pieces = identity.eql?(1) ? player_1_pieces : player_2_pieces
+    self.active_pieces = pieces.select { |piece| piece.active }
+  end
 
 # CHOOSING-LOCATION-TO-MOVE-TO--------------------------------------------------
   def move_navigate(index_size, available)
@@ -71,15 +76,18 @@ class Player
   end
   
   def process_possible_moves(chosen_location, spaces)
-    moves = spaces[chosen_location].piece.get_iterative_moves(chosen_location)
-    moves_flattened = spaces[chosen_location].piece.flatten_possible_moves(moves)
+    if spaces[chosen_location].piece.iterable_move?
+      moves = spaces[chosen_location].piece.get_iterative_moves(chosen_location)
+      moves_flattened = spaces[chosen_location].piece.flatten_possible_moves(moves)
+      return moves_flattened
+    else
+      move_directions = spaces[chosen_location].piece.get_movement_directions
+      locations = 
+        spaces[chosen_location].piece.get_moves(move_directions, chosen_location)
+      legal_locations = spaces[chosen_location].piece.find_legal_moves(locations)
+      print legal_locations; puts;
+      return legal_locations
+    end
   end
 #-------------------------------------------------------------------------------
-
-  # Used in main to update @active_pieces player attribute. 
-  def get_active_pieces(player_1_pieces, player_2_pieces)
-    pieces = identity.eql?(1) ? player_1_pieces : player_2_pieces
-    self.active_pieces = pieces.select { |piece| piece.active }
-  end
-
 end

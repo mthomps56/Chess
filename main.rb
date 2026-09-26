@@ -25,6 +25,8 @@ player_1 = Player.new(1)
 player_2 = Player.new(2)
 players  = [player_1, player_2]
 
+#board.show_piece_info
+
 board.print_board(nil)
 players[0].get_active_pieces(board.player_1_pieces, board.player_2_pieces)
 chosen_location = players[0].navigate do |current_location|

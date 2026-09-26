@@ -39,7 +39,8 @@ class FenLoad
     line.each_char do |char|
       if (1..8).include?(char.to_i)
         blanks = ''
-        char.to_i.times { |_i| blanks += '*' }
+#        char.to_i.times { |_i| blanks += '*' }
+        char.to_i.times { |_i| blanks += '^' }
         new_fen_line << blanks
       else
         new_fen_line << char

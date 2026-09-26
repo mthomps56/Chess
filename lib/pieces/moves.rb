@@ -36,7 +36,12 @@ module Moves
     },
 
     'PAWN' => {
-      first_move_only: [2, 2], after_first_move: [1, 1],
+      first_move_only: [-2, 0], after_first_move: [-1, 0],
+      diag_take_left: [ -1, -1], diag_take_right: [-1, 1]
+    },
+
+    'pawn' => {
+      first_move_only: [2, 0], after_first_move: [1, 0],
       diag_take_left: [-1, 1], diag_take_right: [1, 1]
     },
 

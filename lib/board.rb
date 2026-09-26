@@ -24,6 +24,15 @@ class Board
     @player_2_pieces = []
     make_board(save)
   end
+  def show_piece_info
+    Y_COL.each do |y|
+      X_ROW.each do |x|
+        puts "type:\n     #{spaces[[y, x]].piece.type}"; puts;
+        puts "owner:\n    #{spaces[[y, x]].piece.owner}"; puts;
+        puts "moves:\n    #{spaces[[y, x]].piece.moves}"; puts;
+      end
+    end
+  end
 
 #-CHOOSING-PIECE----------------------------------------------------------------
   public
@@ -54,7 +63,8 @@ class Board
   # Un-highlights cursor location when it moves.
   def un_highlight_piece(current_location)
     return if current_location.nil?
-
+    color = #
+      spaces[current_location].piece.owner.eql?(1) ? :light_yellow : :blue#
     spaces[current_location].symbol =
       spaces[current_location].symbol.colorize(color: :blue)
     spaces[current_location].update_space

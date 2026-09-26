@@ -34,13 +34,13 @@ class Piece
     end
   end
 
-  # 2 All directions regardless is out of bounds 
+  # 2 All directions regardless if out of bounds 
   def get_movement_directions
     move_directions = moves.map { | move_dir, direction | direction }
   end
 
   # 3 (if not iterable) Removes out of bounds options
-  def get_initial_moves(movement_directions, piece_location)
+  def get_moves(movement_directions, piece_location)
     locations = movement_directions.map do |direction|
       [direction[0] + piece_location[0], direction[1] + piece_location[1]]
     end
@@ -57,7 +57,7 @@ class Piece
   end
   
 # MOVES-FOR-ITERATIVE-PIECES----------------------------------------------------
-  # Used in 'Player' class; method: 'choose_space_to_move_to'
+  # Used in 'Player' class; method: 'process_possible_moves'
   def get_iterative_moves(chosen_location)
     possible_moves = []
     moves.each do |key, dir| 
@@ -68,19 +68,19 @@ class Piece
 
   # Takes recursive array's of move sets, flattens them, 
   # and re-organizes them in to [y, x] coordinates. 
-  # Used in 'Player' class; method: 'choose_space_to_move_to'
+  # Used in 'Player' class; method: 'process_possible_moves'
   def flatten_possible_moves(possible_moves)
     flattened_possible_moves = possible_moves.flatten
     y_coord = 0; x_coord = y_coord + 1; possible_moves_array = []
     while x_coord <= flattened_possible_moves.length
       pair = [flattened_possible_moves[y_coord], flattened_possible_moves[x_coord]]
       possible_moves_array << pair
-      y_coord = y_coord + 2; x_coord = x_coord + 2;
+      y_coord = y_coord + 2; x_coord = x_coord + 2;         # Iterate in pairs
     end
     puts; print possible_moves_array
     return possible_moves_array
   end
-
+  
   def take_step(curr, dir, direction = [])
     position = [curr[0] + dir[0], curr[1] + dir[1]]
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
@@ -108,7 +108,7 @@ class Piece
     when 'N' then 'KNIGHT'
     when 'p' then 'pawn'
     when 'P' then 'PAWN'
-    when '*' then 'EMPTY'
+    when '^' then 'EMPTY'
     end
   end
 
@@ -117,6 +117,7 @@ class Piece
   end
 
   def find_moves(type)
+    MOVES.each { |name, moves| return moves if type.eql?('pawn') }
     MOVES.each { |name, moves| return moves if type.upcase.eql?(name) }
   end
 
