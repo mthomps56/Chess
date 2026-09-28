@@ -50,7 +50,7 @@ class Board
 
   private
   def highlight_piece(chosen_location)
-    unless chosen_location.nil?
+    unless chosen_location.nil? # For the first iteration
       spaces[chosen_location].symbol =
         spaces[chosen_location].symbol.colorize(color: :light_green)
       spaces[chosen_location].update_space
@@ -72,11 +72,13 @@ class Board
 
 #-CHOOSE-NEW-LOCATION-----------------------------------------------------------
   public
-  def print_board_with_move_options(legal_moves)
+  def print_board_with_move_options(legal_moves, cursor_location)
     possible_move_color = :red
     Y_COL.each do |y|
       X_ROW.each do |x|
-        if legal_moves.include? [y, x]
+        if cursor_location.eql?([y, x])
+          highlight_move(cursor_location, y, x) 
+        elsif legal_moves.include? [y, x]
           spaces[[y, x]].change_symbol_to_show_potential_move
           spaces[[y, x]].update_space
           spaces[[y, x]].print_space
@@ -88,12 +90,17 @@ class Board
     end
   end
 
-  private
-  # Once the possible moves for the chosen piece are found, show them with the
-  # '*' character in the possible spaces.
-  def highlight_available_moves(cursor_location)
-    print "#{cursor_location}"; puts;
-#    spaces[cursor_location].available = " * ".colorize(color: :light_green)
+  def highlight_move(cursor_location, y, x)
+    if [y, x].eql?(cursor_location) 
+      spaces[cursor_location].symbol = 
+        spaces[cursor_location].symbol.colorize(color: :light_green)
+      spaces[cursor_location].update_space
+      spaces[cursor_location].print_space
+#      puts "<#{cursor_location}>"
+    end
+  end
+
+  def un_highlight_move(cursor_location)
   end
 
 #-------------------------------------------------------------------------------

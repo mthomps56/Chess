@@ -27,7 +27,6 @@ class Player
   def navigate
     first_turn = true
     curr_piece_index = (active_pieces.length - 1) / 2 if first_turn
-#    previous_location = active_pieces[curr_piece_index].location
     user_input.loop do |key|
       curr_piece_index = case key.to_s
                          when 'a', 'left'  then curr_piece_index -= 1
@@ -71,7 +70,7 @@ class Player
                        end
       cursor_location = available[current_index]  
       print cursor_location; puts;
-      yield(available) if block_given?
+      yield(available, cursor_location) if block_given?
     end
   end
   
