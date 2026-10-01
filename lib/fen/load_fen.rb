@@ -17,7 +17,8 @@ class FenLoad
   #  end
 
   private
-
+  
+  # Read string from file
   def get_string
     file.readline.chomp
   end
@@ -26,7 +27,8 @@ class FenLoad
   def split_string
     self.fen_array = fen_string.split('/')
   end
-
+#------------------------------------------------------------------------------- 
+  # Expand blank spaces from number to '^' to signify blank board space.
   def process_fen_array
     new_fen_array = []
     fen_array.each do |line|
@@ -48,4 +50,5 @@ class FenLoad
     end
     new_fen_line
   end
+#-------------------------------------------------------------------------------
 end

@@ -18,7 +18,7 @@ loader = FenLoad.new('./lib/fen/saves/new_game.fen')
 
 # make_board is board.rb
 board  = Board.new(loader.fen_array)
-
+spaces = board.spaces
 # Each player object created and assigned a player identity number.
 # Players put in array for ease of iteration during the Chess game.
 player_1 = Player.new(1)
@@ -33,10 +33,10 @@ chosen_location = players[0].navigate do |current_location|
   board.print_board(current_location)
 end
 
-legal_spaces = players[0].process_possible_moves(chosen_location, board.spaces)
+legal_spaces = players[0].process_possible_moves(spaces, chosen_location)
 index_size = legal_spaces.length
 players[0].move_navigate(index_size, legal_spaces) do |legal_spaces, cursor_location|
   board.print_board_with_move_options(legal_spaces, cursor_location)
-  print cursor_location; puts;
+#  print cursor_location; puts;
 end
 

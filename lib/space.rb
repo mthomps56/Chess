@@ -31,4 +31,8 @@ class Space
   def change_symbol_to_show_potential_move
     self.symbol = self.available
   end
+
+  def has_piece?
+    return self.piece.type != "EMPTY" && self.piece.type != nil
+  end
 end

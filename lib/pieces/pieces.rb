@@ -29,11 +29,13 @@ class Piece
   # 'find_legal_moves_set' for iterative pieces
   def iterable_move?
    iterable = case type
-    when 'rook', 'ROOK', 'bishop', 'BISHOP', 'queen', 'QUEEN' then true
-    else false
-    end
+              when 'rook', 'ROOK', 'bishop', 'BISHOP', 'queen', 'QUEEN' 
+                then true
+              else false
+              end
   end
 
+# MOVES-FOR-NON-ITERATIV-PIECES-------------------------------------------------
   # 2 All directions regardless if out of bounds 
   def get_movement_directions
     move_directions = moves.map { | move_dir, direction | direction }
@@ -55,15 +57,41 @@ class Piece
     end
     return possible_locations
   end
-  
+#-------------------------------------------------------------------------------  
 # MOVES-FOR-ITERATIVE-PIECES----------------------------------------------------
   # Used in 'Player' class; method: 'process_possible_moves'
-  def get_iterative_moves(chosen_location)
+  def get_iterative_moves(spaces, chosen_location)
     possible_moves = []
     moves.each do |key, dir| 
-      possible_moves << take_step(chosen_location, dir, direction = [])
+      possible_moves << take_step(spaces, chosen_location, dir, direction = [])
     end
+    print "hey"
+    pp spaces; puts;
     return possible_moves
+  end
+
+  # Step recursively until conditions are no longer met.
+  def take_step(spaces, curr, dir, direction = [])
+    print "curr: #{curr}"
+    position = [curr[0] + dir[0], curr[1] + dir[1]]
+
+    x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
+    y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
+
+#    return direction if blocked
+    if x_scope && y_scope
+      direction << position
+      take_step(spaces, position, dir, direction)
+    else
+      return direction
+    end
+  end
+
+  # Does the iterative piece run in to another piece?
+  def next_space_blocked?(spaces, position, dir)
+#    print [position[0] + dir[0], position[1] + dir[1]]
+    blocked = 
+      spaces[[position[0] + dir[0], position[1] + dir[1]]].piece.type != 'EMPTY'
   end
 
   # Takes recursive array's of move sets, flattens them, 
@@ -77,23 +105,11 @@ class Piece
       possible_moves_array << pair
       y_coord = y_coord + 2; x_coord = x_coord + 2;         # Iterate in pairs
     end
-    puts; print possible_moves_array
+#    puts; print "possible_moves_array: #{possible_moves_array}"
     return possible_moves_array
   end
-  
-  def take_step(curr, dir, direction = [])
-    position = [curr[0] + dir[0], curr[1] + dir[1]]
-    x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
-    y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
-    if x_scope && y_scope
-      direction << position
-      take_step(position, dir, direction)
-    else
-      return direction
-    end
-  end
 #-------------------------------------------------------------------------------
-
+# SET-THE-PIECE-TYPE------------------------------------------------------------
   def find_type(fen_char)
     case fen_char
     when 'k' then 'king'

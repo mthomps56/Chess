@@ -96,13 +96,8 @@ class Board
         spaces[cursor_location].symbol.colorize(color: :light_green)
       spaces[cursor_location].update_space
       spaces[cursor_location].print_space
-#      puts "<#{cursor_location}>"
     end
   end
-
-  def un_highlight_move(cursor_location)
-  end
-
 #-------------------------------------------------------------------------------
   # Fill the board with spaces and each space with it's piece (or lack of)
   # based on the contents of the FEN data.

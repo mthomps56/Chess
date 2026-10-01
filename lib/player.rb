@@ -69,15 +69,22 @@ class Player
                          next
                        end
       cursor_location = available[current_index]  
-      print cursor_location; puts;
+#      print cursor_location; puts;
       yield(available, cursor_location) if block_given?
     end
   end
   
-  def process_possible_moves(chosen_location, spaces)
+  # Find the possible movement spaces for chosen piece.
+  def process_possible_moves(spaces, chosen_location)
+
+    # Is the piece iterative?
     if spaces[chosen_location].piece.iterable_move?
-      moves = spaces[chosen_location].piece.get_iterative_moves(chosen_location)
-      moves_flattened = spaces[chosen_location].piece.flatten_possible_moves(moves)
+      # Get the array of moves. 
+      moves = 
+        spaces[chosen_location].piece.get_iterative_moves(spaces, chosen_location)
+      # Flatten the array of moves
+      moves_flattened = 
+        spaces[chosen_location].piece.flatten_possible_moves(moves)
       return moves_flattened
     else
       move_directions = spaces[chosen_location].piece.get_movement_directions
