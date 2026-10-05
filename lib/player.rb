@@ -21,7 +21,7 @@ class Player
   def initialize(identity)
     @identity      = identity # The player number
     @user_input    = Interaction.new
-    @active_pieces = nil
+    @active_pieces = []
   end
 
   def navigate
@@ -34,7 +34,8 @@ class Player
                          when 'd', 'right' then curr_piece_index += 1
                          when 'w', 'up'    then curr_piece_index -= 1
                          when 'control_m', 'space'
-                           current_location = active_pieces[curr_piece_index].location
+                           current_location = 
+                             active_pieces[curr_piece_index].location
                            return current_location
                          else
                            puts 'use [a] [s] [d] [w] or the arrow keys'
@@ -69,7 +70,7 @@ class Player
                          next
                        end
       cursor_location = available[current_index]  
-#      print cursor_location; puts;
+      print "cursor_location: #{cursor_location}"; puts;
       yield(available, cursor_location) if block_given?
     end
   end
@@ -86,12 +87,17 @@ class Player
       moves_flattened = 
         spaces[chosen_location].piece.flatten_possible_moves(moves)
       return moves_flattened
+
+    # The piece is not iterative.
     else
       move_directions = spaces[chosen_location].piece.get_movement_directions
       locations = 
-        spaces[chosen_location].piece.get_moves(move_directions, chosen_location)
-      legal_locations = spaces[chosen_location].piece.find_legal_moves(locations)
-      print legal_locations; puts;
+        spaces[chosen_location].piece.get_moves(spaces, move_directions, chosen_location)
+
+      legal_locations = 
+        spaces[chosen_location].piece.find_legal_moves(spaces, locations)
+      
+      print "legal_moves: #{legal_locations}"; puts;
       return legal_locations
     end
   end

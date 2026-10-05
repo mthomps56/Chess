@@ -42,18 +42,22 @@ class Piece
   end
 
   # 3 (if not iterable) Removes out of bounds options
-  def get_moves(movement_directions, piece_location)
+  def get_moves(spaces, movement_directions, piece_location)
+
     locations = movement_directions.map do |direction|
       [direction[0] + piece_location[0], direction[1] + piece_location[1]]
     end
   end
 
   # 4 Moves for non-iterative pieces
-  def find_legal_moves(locations)#movement_directions, piece_location)
+  def find_legal_moves(spaces, locations)#movement_directions, piece_location)
     possible_locations = locations.select do |location| 
       x_scope = location[0] <= SCOPE_HIGH && location[0] >= SCOPE_LOW
       y_scope = location[1] <= SCOPE_HIGH && location[1] >= SCOPE_LOW
+      blocked = next_space_blocked?(spaces, location)
+      next if blocked
       location if x_scope && y_scope
+
     end
     return possible_locations
   end
@@ -65,21 +69,19 @@ class Piece
     moves.each do |key, dir| 
       possible_moves << take_step(spaces, chosen_location, dir, direction = [])
     end
-    print "hey"
-    pp spaces; puts;
     return possible_moves
   end
 
   # Step recursively until conditions are no longer met.
   def take_step(spaces, curr, dir, direction = [])
-    print "curr: #{curr}"
+    blocked  = next_space_blocked?(spaces, curr, dir)
     position = [curr[0] + dir[0], curr[1] + dir[1]]
 
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
 
-#    return direction if blocked
     if x_scope && y_scope
+      return if blocked
       direction << position
       take_step(spaces, position, dir, direction)
     else
@@ -88,10 +90,12 @@ class Piece
   end
 
   # Does the iterative piece run in to another piece?
-  def next_space_blocked?(spaces, position, dir)
-#    print [position[0] + dir[0], position[1] + dir[1]]
+  def next_space_blocked?(spaces, position, dir = [0, 0])
+    coordinates = [position[0] + dir[0], position[1] + dir[1]]
+    return if spaces[coordinates].nil?
     blocked = 
-      spaces[[position[0] + dir[0], position[1] + dir[1]]].piece.type != 'EMPTY'
+      spaces[coordinates].piece.type != 'EMPTY'
+    return blocked
   end
 
   # Takes recursive array's of move sets, flattens them, 

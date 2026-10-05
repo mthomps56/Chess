@@ -24,10 +24,17 @@ class Space
     print space
   end
 
+  # Reset the symbol after a piece moves to and from the space.
+  def reset_symbol
+    self.symbol = piece.symbol
+  end
+  
+  # Refresh spaces when reprinting the board.
   def update_space(color = self.color)
     self.space = " #{symbol} ".colorize(background: color)
   end
-
+  
+  # Used while navigating to a possible move.
   def change_symbol_to_show_potential_move
     self.symbol = self.available
   end
@@ -35,4 +42,14 @@ class Space
   def has_piece?
     return self.piece.type != "EMPTY" && self.piece.type != nil
   end
+
+  def put_piece_here(piece)
+    old_piece = self.piece
+    self.piece = piece
+    reset_symbol
+    update_space
+    old_piece
+  end
+  alias remove_piece put_piece_here
+
 end

@@ -37,10 +37,12 @@ class Board
 #-CHOOSING-PIECE----------------------------------------------------------------
   public
   # Ran inside a block that is called each time a piece is moved.              
-  def print_board(current_location = nil)                                      
+  def print_board(current_location = nil)
+    piece_at_locations = []
     highlight_piece(current_location)                                          
     Y_COL.each do |y|                                                          
       X_ROW.each do |x|                                                        
+        yield(y, x) if block_given?
         spaces[[y, x]].print_space                                             
         puts if x.eql? BOARD_LENGTH                                            
       end                                                                      
