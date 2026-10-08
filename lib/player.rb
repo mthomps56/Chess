@@ -47,14 +47,19 @@ class Player
       #      return current_location if players_piece_chosen.eql? true
     end
   end
+  def get_active_pieces(piece)
+    self.active_pieces << piece if piece.owner.eql? self.identity
+  end
+
   # Used in main to update @active_pieces player attribute. 
-  def get_active_pieces(player_1_pieces, player_2_pieces)
+  def _get_active_pieces(player_1_pieces, player_2_pieces)
     pieces = identity.eql?(1) ? player_1_pieces : player_2_pieces
     self.active_pieces = pieces.select { |piece| piece.active }
   end
 
 # CHOOSING-LOCATION-TO-MOVE-TO--------------------------------------------------
   def move_navigate(index_size, available)
+#    print "index_size: #{index_size}, available: #{available}"; puts;
     current_index = (index_size - 1) / 2 
     user_input.loop do |key|
       current_index = case key.to_s
@@ -64,6 +69,7 @@ class Player
                        when 'w', 'up'    then current_index -= 1
                        when 'control_m', 'space'
                          cursor_location = available[current_index]
+                         print "cursor_location: #{cursor_location}"; puts;
                          return cursor_location
                        else
                          puts 'use [a] [s] [d] [w] or the arrow keys'

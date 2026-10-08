@@ -24,7 +24,7 @@ class Piece
     @location = location
     @active   = true
   end
-  
+
   # 1 Will the piece call 'find_legal_moves' for non-iterative pieces or 
   # 'find_legal_moves_set' for iterative pieces
   def iterable_move?
@@ -54,7 +54,7 @@ class Piece
     possible_locations = locations.select do |location| 
       x_scope = location[0] <= SCOPE_HIGH && location[0] >= SCOPE_LOW
       y_scope = location[1] <= SCOPE_HIGH && location[1] >= SCOPE_LOW
-      blocked = next_space_blocked?(spaces, location)
+      blocked = this_space_occupied?(spaces, location)
       next if blocked
       location if x_scope && y_scope
 
@@ -63,7 +63,7 @@ class Piece
   end
 #-------------------------------------------------------------------------------  
 # MOVES-FOR-ITERATIVE-PIECES----------------------------------------------------
-  # Used in 'Player' class; method: 'process_possible_moves'
+  # Used in 'Player' class method: 'process_possible_moves'
   def get_iterative_moves(spaces, chosen_location)
     possible_moves = []
     moves.each do |key, dir| 
@@ -73,29 +73,25 @@ class Piece
   end
 
   # Step recursively until conditions are no longer met.
-  def take_step(spaces, curr, dir, direction = [])
-    blocked  = next_space_blocked?(spaces, curr, dir)
-    position = [curr[0] + dir[0], curr[1] + dir[1]]
-
+  def take_step(spaces, position, dir, direction = [], first_iteration = true)
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
+    in_scope = x_scope && y_scope
 
-    if x_scope && y_scope
-      return if blocked
-      direction << position
-      take_step(spaces, position, dir, direction)
+    if in_scope 
+      direction << position unless first_iteration
+      position = [position[0] + dir[0], position[1] + dir[1]]
+      take_step(spaces, position, dir, direction, first_iteration = false)
     else
+      puts "in else: #{direction}"
       return direction
     end
   end
-
+  
   # Does the iterative piece run in to another piece?
-  def next_space_blocked?(spaces, position, dir = [0, 0])
-    coordinates = [position[0] + dir[0], position[1] + dir[1]]
-    return if spaces[coordinates].nil?
-    blocked = 
-      spaces[coordinates].piece.type != 'EMPTY'
-    return blocked
+  def this_space_occupied?(spaces, position)
+    #return if spaces[coordinates].nil?
+    occupied = spaces[position].piece.type != 'EMPTY'
   end
 
   # Takes recursive array's of move sets, flattens them, 
@@ -109,7 +105,7 @@ class Piece
       possible_moves_array << pair
       y_coord = y_coord + 2; x_coord = x_coord + 2;         # Iterate in pairs
     end
-#    puts; print "possible_moves_array: #{possible_moves_array}"
+    puts; print "possible_moves_array: #{possible_moves_array}"
     return possible_moves_array
   end
 #-------------------------------------------------------------------------------
@@ -142,6 +138,7 @@ class Piece
   end
 
   def find_owner(fen_char)
+    return 0 if fen_char.eql? '^'
     fen_char.eql?(fen_char.upcase) ? 1 : 2
   end
 end

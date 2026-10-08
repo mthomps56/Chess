@@ -50,6 +50,6 @@ class Space
     update_space
     old_piece
   end
-  alias remove_piece put_piece_here
+  alias put_empty_piece put_piece_here
 
 end
