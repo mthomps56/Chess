@@ -24,31 +24,23 @@ class Board
     @player_2_pieces = []
     make_board(save)
   end
-  def show_piece_info
-    Y_COL.each do |y|
-      X_ROW.each do |x|
-        puts "type:\n     #{spaces[[y, x]].piece.type}"; puts;
-        puts "owner:\n    #{spaces[[y, x]].piece.owner}"; puts;
-        puts "moves:\n    #{spaces[[y, x]].piece.moves}"; puts;
-      end
-    end
-  end
 
 #-CHOOSING-PIECE----------------------------------------------------------------
   public
   # Ran inside a block that is called each time a piece is moved.              
-  def print_board(current_location = nil)                                      
+  def print_board(current_location = nil)
+    piece_at_locations = []
     highlight_piece(current_location)                                          
     Y_COL.each do |y|                                                          
       X_ROW.each do |x|                                                        
         spaces[[y, x]].print_space                                             
+        yield(y, x) if block_given?
         puts if x.eql? BOARD_LENGTH                                            
       end                                                                      
     end                                                                        
     un_highlight_piece(current_location); puts; puts;                          
   end
 
-  private
   def highlight_piece(chosen_location)
     unless chosen_location.nil? # For the first iteration
       spaces[chosen_location].symbol =
@@ -63,7 +55,7 @@ class Board
   # Un-highlights cursor location when it moves.
   def un_highlight_piece(current_location)
     return if current_location.nil?
-    color = #
+    color = 
       spaces[current_location].piece.owner.eql?(1) ? :light_yellow : :blue#
     spaces[current_location].symbol =
       spaces[current_location].symbol.colorize(color: :blue)
@@ -71,23 +63,31 @@ class Board
   end
 
 #-CHOOSE-NEW-LOCATION-----------------------------------------------------------
-  public
+  # This method is a mess. It shows the board, the potential spaces to move in
+  # 'red', and the space symbol which is a piece symbol or a '*' to signify the
+  # space is available to move to. 
   def print_board_with_move_options(legal_moves, cursor_location)
-    possible_move_color = :red
+
+    # For storing which spaces the chosen piece can move to.
+    highlighted_spaces = [] 
+
     Y_COL.each do |y|
       X_ROW.each do |x|
         if cursor_location.eql?([y, x])
           highlight_move(cursor_location, y, x) 
         elsif legal_moves.include? [y, x]
-          spaces[[y, x]].change_symbol_to_show_potential_move
-          spaces[[y, x]].update_space
+          spaces[[y, x]].change_symbol_to_show_potential_move # Give it the '*'
+          highlighted_spaces << [y, x]    # Store the location array for later. 
+        # The attributes need updated before printing. 
+          spaces[[y, x]].update_space  
           spaces[[y, x]].print_space
         else
           spaces[[y, x]].print_space
         end
-        puts if x.eql? BOARD_LENGTH
+        puts if x.eql? BOARD_LENGTH  # Makes the board 8x8.
       end
     end
+    highlighted_spaces
   end
 
   def highlight_move(cursor_location, y, x)
@@ -96,11 +96,15 @@ class Board
         spaces[cursor_location].symbol.colorize(color: :light_green)
       spaces[cursor_location].update_space
       spaces[cursor_location].print_space
-#      puts "<#{cursor_location}>"
     end
   end
-
-  def un_highlight_move(cursor_location)
+  
+  def un_highlight_moves_options(highlighted_spaces)
+    highlighted_spaces.each do |coordinates| 
+      print "coordinates: #{coordinates}"
+      spaces[coordinates].reset_symbol
+      spaces[coordinates].update_space
+    end
   end
 
 #-------------------------------------------------------------------------------
@@ -120,7 +124,7 @@ class Board
   end
 
   def send_created_piece_to_players_array(piece)
-    return if piece.type.eql?('EMPTY')
+    #if piece.type.eql?('EMPTY')
 
     if piece.type.eql?(piece.type.upcase)
       player_1_pieces << piece
@@ -132,6 +136,7 @@ class Board
   def distribute_piece_to_spaces(piece, color, x, y)
     spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(1)
     spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(2)
+    spaces[[x, y]] = Space.new(color, piece) if piece.owner.eql?(0)
   end
 #------------------------------------------------------------------------------
 end
