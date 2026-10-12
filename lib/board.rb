@@ -101,7 +101,6 @@ class Board
   
   def un_highlight_moves_options(highlighted_spaces)
     highlighted_spaces.each do |coordinates| 
-      print "coordinates: #{coordinates}"
       spaces[coordinates].reset_symbol
       spaces[coordinates].update_space
     end

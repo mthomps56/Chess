@@ -42,24 +42,17 @@ class Player
                            next
                          end
       current_location = active_pieces[curr_piece_index].location
-      yield(current_location)#, previous_location)
+      yield(current_location)
       first_turn = false
-      #      return current_location if players_piece_chosen.eql? true
     end
   end
+
   def get_active_pieces(piece)
     self.active_pieces << piece if piece.owner.eql? self.identity
   end
 
-  # Used in main to update @active_pieces player attribute. 
-  def _get_active_pieces(player_1_pieces, player_2_pieces)
-    pieces = identity.eql?(1) ? player_1_pieces : player_2_pieces
-    self.active_pieces = pieces.select { |piece| piece.active }
-  end
-
 # CHOOSING-LOCATION-TO-MOVE-TO--------------------------------------------------
   def move_navigate(index_size, available)
-#    print "index_size: #{index_size}, available: #{available}"; puts;
     current_index = (index_size - 1) / 2 
     user_input.loop do |key|
       current_index = case key.to_s
@@ -83,15 +76,16 @@ class Player
   
   # Find the possible movement spaces for chosen piece.
   def process_possible_moves(spaces, chosen_location)
-
     # Is the piece iterative?
     if spaces[chosen_location].piece.iterable_move?
       # Get the array of moves. 
       moves = 
         spaces[chosen_location].piece.get_iterative_moves(spaces, chosen_location)
+
       # Flatten the array of moves
       moves_flattened = 
         spaces[chosen_location].piece.flatten_possible_moves(moves)
+
       return moves_flattened
 
     # The piece is not iterative.
@@ -103,7 +97,6 @@ class Player
       legal_locations = 
         spaces[chosen_location].piece.find_legal_moves(spaces, locations)
       
-      print "legal_moves: #{legal_locations}"; puts;
       return legal_locations
     end
   end

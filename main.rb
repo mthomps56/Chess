@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# froizen_string_literal: true
 
 require 'pry-byebug'
 require_relative './lib/instructions'
@@ -17,10 +17,8 @@ board  = Board.new(loader.fen_array)
 
 player_1 = Player.new(1)
 player_2 = Player.new(2)
-
-#player_1.active_pieces = board.player_1_pieces
-#player_2.active_pieces = board.player_2_pieces
 players  = [player_1, player_2]
+
 while true
   # Show board setup and update 'active_pieces' array. 
   board.print_board do |y, x| 
@@ -31,17 +29,16 @@ while true
   origin_location = players[0].navigate do |current_location|
     board.print_board(current_location)
   end
-
-  # Choose a legal location for piece to move to.
+ #------------------------------------------------------------------------------ 
+  # Get the board with the chosen piece's possible movement locations shown.
   legal_spaces = players[0].process_possible_moves(board.spaces, origin_location)
-  legal_spaces.each { |coord| puts board.spaces[coord].piece.type }
-  
   index_size = legal_spaces.length
   board.print_board_with_move_options(legal_spaces, origin_location)
+
+  # Choose a legal location for piece to move to.
   new_location = 
     players[0].move_navigate(index_size, legal_spaces) do 
       |legal_spaces, cursor_location|
-#      print "legal_spaces: #{legal_spaces}"; puts;
       board.print_board_with_move_options(legal_spaces, cursor_location)
   end
   board.un_highlight_moves_options(legal_spaces)

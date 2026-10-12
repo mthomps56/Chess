@@ -68,6 +68,7 @@ class Piece
     possible_moves = []
     moves.each do |key, dir| 
       possible_moves << take_step(spaces, chosen_location, dir, direction = [])
+      puts "direction complete"
     end
     return possible_moves
   end
@@ -76,22 +77,36 @@ class Piece
   def take_step(spaces, position, dir, direction = [], first_iteration = true)
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
-    in_scope = x_scope && y_scope
+    in_scope = x_scope && y_scope 
+    print "in_scope: #{in_scope}"; puts
 
     if in_scope 
       direction << position unless first_iteration
+      print " first_iteration: #{first_iteration}"
+      puts "  direction: #{direction}"
       position = [position[0] + dir[0], position[1] + dir[1]]
+#      return direction if this_space_occupied?(spaces, position)
+      if this_space_occupied?(spaces, position)
+        direction << position
+        return direction
+      end
+
+      print "position AFTER adding direction: #{position}"; puts;
       take_step(spaces, position, dir, direction, first_iteration = false)
     else
-      puts "in else: #{direction}"
+      print "direction total: #{direction}"; puts
       return direction
     end
   end
   
   # Does the iterative piece run in to another piece?
   def this_space_occupied?(spaces, position)
-    #return if spaces[coordinates].nil?
+    return if spaces[position].nil?
+    print spaces[position].nil? 
+
     occupied = spaces[position].piece.type != 'EMPTY'
+    print " occupied: #{occupied}, piece type: #{spaces[position].piece.type}"; puts;
+    return occupied
   end
 
   # Takes recursive array's of move sets, flattens them, 
@@ -105,7 +120,6 @@ class Piece
       possible_moves_array << pair
       y_coord = y_coord + 2; x_coord = x_coord + 2;         # Iterate in pairs
     end
-    puts; print "possible_moves_array: #{possible_moves_array}"
     return possible_moves_array
   end
 #-------------------------------------------------------------------------------
