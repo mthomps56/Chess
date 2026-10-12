@@ -3,10 +3,6 @@
 require 'colorize'
 require 'pry-byebug'
 require_relative './space'
-require_relative 'pieces/pieces'
-require_relative 'pieces/utf_codes'
-require_relative './fen/load_fen'
-require_relative './player'
 
 # Represents The chess board. Made of Space objects"
 class Board
@@ -16,12 +12,10 @@ class Board
   WHITE_SPACES_EVEN = [0, 2, 4, 6]
   WHITE_SPACES_ODD  = [1, 3, 5, 7]
 
-  attr_accessor :spaces, :player_1_pieces, :player_2_pieces
+  attr_accessor :spaces
 
   def initialize(save)
     @spaces = {}
-    @player_1_pieces = [] # Use when picking a piece while using navigate.
-    @player_2_pieces = []
     make_board(save)
   end
 
@@ -67,7 +61,6 @@ class Board
   # 'red', and the space symbol which is a piece symbol or a '*' to signify the
   # space is available to move to. 
   def print_board_with_move_options(legal_moves, cursor_location)
-
     # For storing which spaces the chosen piece can move to.
     highlighted_spaces = [] 
 
@@ -116,19 +109,8 @@ class Board
         char = save[y][x]
         color = white_space.include?(x) ? :grey : :white
         piece = Piece.new(char, [y, x])
-        send_created_piece_to_players_array(piece)
         distribute_piece_to_spaces(piece, color, y, x)
       end
-    end
-  end
-
-  def send_created_piece_to_players_array(piece)
-    #if piece.type.eql?('EMPTY')
-
-    if piece.type.eql?(piece.type.upcase)
-      player_1_pieces << piece
-    elsif piece.type.eql?(piece.type)
-      player_2_pieces << piece
     end
   end
 

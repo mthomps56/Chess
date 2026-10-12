@@ -6,9 +6,7 @@ require_relative './lib/fen/load_fen'
 require_relative './lib/board'
 require_relative './lib/space'
 require_relative './lib/player'
-require_relative './lib/game'
 
-include Game
 include Messages
 # Contains fen_string which holds piece location of new or prev games.
 loader = FenLoad.new('./lib/fen/saves/new_game.fen')
