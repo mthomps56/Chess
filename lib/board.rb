@@ -61,16 +61,16 @@ class Board
   # 'red', and the space symbol which is a piece symbol or a '*' to signify the
   # space is available to move to. 
   def print_board_with_move_options(legal_moves, cursor_location)
-    # For storing which spaces the chosen piece can move to.
-    highlighted_spaces = [] 
-
     Y_COL.each do |y|
       X_ROW.each do |x|
         if cursor_location.eql?([y, x])
           highlight_move(cursor_location, y, x) 
         elsif legal_moves.include? [y, x]
-          spaces[[y, x]].change_symbol_to_show_potential_move # Give it the '*'
-          highlighted_spaces << [y, x]    # Store the location array for later. 
+          if spaces[[y, x]].piece.type != 'EMPTY'
+            spaces[[y, x]].show_enemy_piece_to_kill
+          elsif spaces[[y, x]].piece.type == 'EMPTY'
+            spaces[[y, x]].change_symbol_to_show_potential_move # Give it the '*'
+          end
         # The attributes need updated before printing. 
           spaces[[y, x]].update_space  
           spaces[[y, x]].print_space
@@ -80,7 +80,6 @@ class Board
         puts if x.eql? BOARD_LENGTH  # Makes the board 8x8.
       end
     end
-    highlighted_spaces
   end
 
   def highlight_move(cursor_location, y, x)

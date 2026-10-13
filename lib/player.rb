@@ -52,7 +52,7 @@ class Player
   end
 
 # CHOOSING-LOCATION-TO-MOVE-TO--------------------------------------------------
-  def move_navigate(index_size, available)
+  def move_navigate(index_size = self.active_pieces.size, available = self.active_pieces)
     current_index = (index_size - 1) / 2 
     user_input.loop do |key|
       current_index = case key.to_s

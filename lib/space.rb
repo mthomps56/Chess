@@ -39,6 +39,11 @@ class Space
     self.symbol = self.available
   end
 
+  def show_enemy_piece_to_kill
+    self.symbol = 
+      self.piece.symbol.colorize(color: :light_magenta) #if self.piece.owner != player.identity
+  end
+
   def has_piece?
     return self.piece.type != "EMPTY" && self.piece.type != nil
   end
