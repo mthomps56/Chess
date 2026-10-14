@@ -52,8 +52,7 @@ class Piece
   end
 
   # 4 Moves for non-iterative pieces
-  def find_legal_moves(spaces, locations)#movement_directions, piece_location)
-    dissallowed_moves = []
+  def find_legal_moves(spaces, locations)
     possible_locations = locations.select do |location| 
       x_scope = location[0] <= SCOPE_HIGH && location[0] >= SCOPE_LOW
       y_scope = location[1] <= SCOPE_HIGH && location[1] >= SCOPE_LOW
@@ -63,6 +62,7 @@ class Piece
       next if blocked && same_piece_owner?(spaces, location)
       location if x_scope && y_scope
     end
+    pawns_first_move?
     return possible_locations
   end
 #-------------------------------------------------------------------------------  
@@ -72,7 +72,7 @@ class Piece
     possible_moves = []
     moves.each do |key, dir| 
       possible_moves << take_step(spaces, chosen_location, dir, direction = [])
-      puts "direction complete"
+#      puts "direction complete"
     end
     return possible_moves
   end
@@ -82,12 +82,12 @@ class Piece
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
     in_scope = x_scope && y_scope 
-    print "in_scope: #{in_scope}"; puts
+#    print "in_scope: #{in_scope}"; puts
     
     if in_scope 
       direction << position unless first_iteration
-      print " first_iteration: #{first_iteration}"
-      puts "  direction: #{direction}"
+#      print " first_iteration: #{first_iteration}"
+#      puts "  direction: #{direction}"
       position = [position[0] + dir[0], position[1] + dir[1]]
       if this_space_occupied?(spaces, position)
         return direction if same_piece_owner?(spaces, position)
@@ -95,10 +95,10 @@ class Piece
         return direction
       end
 
-      print "position AFTER adding direction: #{position}"; puts;
+#      print "position AFTER adding direction: #{position}"; puts;
       take_step(spaces, position, dir, direction, first_iteration = false)
     else
-      print "direction total: #{direction}"; puts
+#      print "direction total: #{direction}"; puts
       return direction
     end
   end
@@ -113,7 +113,7 @@ class Piece
     print spaces[position].nil? 
 
     occupied = spaces[position].piece.type != 'EMPTY'
-    print " occupied: #{occupied}, piece type: #{spaces[position].piece.type}"; puts;
+#    print " occupied: #{occupied}, piece type: #{spaces[position].piece.type}"; puts;
     return occupied
   end
 
@@ -155,10 +155,7 @@ class Piece
   end
 
   def find_moves(type)
-#    MOVES.each { |name, moves| return moves if type.eql?('pawn') }
-#    MOVES.each { |name, moves| return moves if type.upcase.eql?(name) }
-    print "moves: #{MOVES[type]} \n\n" if type.eql? 'pawn'
-    return MOVES[type] #if type.eql?(name)
+    return MOVES[type] 
   end
 
   def find_owner(fen_char)

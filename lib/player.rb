@@ -82,7 +82,7 @@ class Player
       moves = 
         spaces[chosen_location].piece.get_iterative_moves(spaces, chosen_location)
 
-      # Flatten the array of moves
+      # Flatten the array of movement directions.
       moves_flattened = 
         spaces[chosen_location].piece.flatten_possible_moves(moves)
 
@@ -96,7 +96,6 @@ class Player
 
       legal_locations = 
         spaces[chosen_location].piece.find_legal_moves(spaces, locations)
-      
       return legal_locations
     end
   end
