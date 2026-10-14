@@ -57,23 +57,26 @@ class Board
   end
 
 #-CHOOSE-NEW-LOCATION-----------------------------------------------------------
-  # This method is a mess. It shows the board, the potential spaces to move in
-  # 'red', and the space symbol which is a piece symbol or a '*' to signify the
-  # space is available to move to. 
   def print_board_with_move_options(legal_moves, cursor_location)
     Y_COL.each do |y|
       X_ROW.each do |x|
+        # The cursor is on this space
         if cursor_location.eql?([y, x])
           highlight_move(cursor_location, y, x) 
+        # The spaces that the piece could move to. 
         elsif legal_moves.include? [y, x]
+
+          # The possible move location has an enemy piece--highlighted pink.
           if spaces[[y, x]].piece.type != 'EMPTY'
             spaces[[y, x]].show_enemy_piece_to_kill
+          # The possible move location is empty and shows asterik.
           elsif spaces[[y, x]].piece.type == 'EMPTY'
             spaces[[y, x]].change_symbol_to_show_potential_move # Give it the '*'
           end
         # The attributes need updated before printing. 
           spaces[[y, x]].update_space  
           spaces[[y, x]].print_space
+
         else
           spaces[[y, x]].print_space
         end

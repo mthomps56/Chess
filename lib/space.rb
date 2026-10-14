@@ -28,6 +28,10 @@ class Space
   def reset_symbol
     self.symbol = piece.symbol
   end
+
+  def reset_piece_location(new_location)
+    self.piece.location = new_location
+  end
   
   # Refresh spaces when reprinting the board.
   def update_space(color = self.color)
@@ -44,17 +48,31 @@ class Space
       self.piece.symbol.colorize(color: :light_magenta) #if self.piece.owner != player.identity
   end
 
-  def has_piece?
-    return self.piece.type != "EMPTY" && self.piece.type != nil
+  # Move piece to new space and put 'EMPTY' piece in old space. 
+  def take_new_piece_and_send_back_empty(prior_space, new_location)
+    old_piece = assign_new_piece(prior_space, new_location)
+    prior_space.assign_empty(old_piece, prior_space.piece.location)
   end
 
-  def put_piece_here(piece)
+  def assign_new_piece(prior_space, new_location)
     old_piece = self.piece
-    self.piece = piece
+    self.piece = prior_space.piece
+    reset_symbol
+    reset_piece_location(new_location)
+    update_space
+    return old_piece
+  end
+
+  # Is the old_space_empty? Usedd in assign empty.
+  def old_piece_empty?
+    return self.piece.type.eql? 'EMPTY' 
+  end
+
+  # Used in swap pieces. Assign an empty piece to the space a piece moved from.
+  def assign_empty(piece, old_location)
+    self.piece = old_piece_empty? ? piece : Piece.new('^', old_location)
     reset_symbol
     update_space
-    old_piece
   end
-  alias put_empty_piece put_piece_here
 
 end

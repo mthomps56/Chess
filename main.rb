@@ -1,10 +1,8 @@
 # froizen_string_literal: true
 
-require 'pry-byebug'
 require_relative './lib/instructions'
 require_relative './lib/fen/load_fen'
 require_relative './lib/board'
-require_relative './lib/space'
 require_relative './lib/player'
 
 include Messages
@@ -40,10 +38,12 @@ while true
       board.print_board_with_move_options(legal_spaces, cursor_location)
   end
   board.un_highlight_moves_options(legal_spaces)
-
+#-------------------------------------------------------------------------------
   # Piece movement.
-  empty_piece_for_original_space = 
-    board.spaces[new_location].put_piece_here(board.spaces[origin_location].piece)
-  board.spaces[new_location].piece.location = new_location
-  board.spaces[origin_location].put_empty_piece(empty_piece_for_original_space)
+  board.spaces[new_location].take_new_piece_and_send_back_empty(
+    board.spaces[origin_location], new_location)
+#  empty_piece_for_original_space = 
+#    board.spaces[new_location].put_piece_here(board.spaces[origin_location].piece)
+#  board.spaces[new_location].piece.location = new_location
+#  board.spaces[origin_location].put_empty_piece(empty_piece_for_original_space)
 end

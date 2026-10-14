@@ -4,10 +4,12 @@ require 'pry-byebug'
 require 'colorize'
 require_relative 'moves'
 require_relative 'utf_codes'
+require_relative 'pawn'
 
 # Chess Piece objects that can represent any legal Chess piece
 class Piece
   include Moves
+  include PawnLogic
   include ChessPieces
 
   SCOPE_HIGH = 7
@@ -51,16 +53,15 @@ class Piece
 
   # 4 Moves for non-iterative pieces
   def find_legal_moves(spaces, locations)#movement_directions, piece_location)
+    dissallowed_moves = []
     possible_locations = locations.select do |location| 
       x_scope = location[0] <= SCOPE_HIGH && location[0] >= SCOPE_LOW
       y_scope = location[1] <= SCOPE_HIGH && location[1] >= SCOPE_LOW
 
       # Is a piece already in the space?
       blocked = this_space_occupied?(spaces, location)
-      # Ignore that space if the piece is the current players.
       next if blocked && same_piece_owner?(spaces, location)
       location if x_scope && y_scope
-
     end
     return possible_locations
   end
@@ -154,8 +155,10 @@ class Piece
   end
 
   def find_moves(type)
-    MOVES.each { |name, moves| return moves if type.eql?('pawn') }
-    MOVES.each { |name, moves| return moves if type.upcase.eql?(name) }
+#    MOVES.each { |name, moves| return moves if type.eql?('pawn') }
+#    MOVES.each { |name, moves| return moves if type.upcase.eql?(name) }
+    print "moves: #{MOVES[type]} \n\n" if type.eql? 'pawn'
+    return MOVES[type] #if type.eql?(name)
   end
 
   def find_owner(fen_char)
