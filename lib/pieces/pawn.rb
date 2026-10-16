@@ -7,27 +7,30 @@ module PawnLogic
   end
 
   def pawns_first_move?
-    puts "pawn selected"
     self.moves.delete(:first_move_only) if pawn_selected?
   end
 
-  def allow_enemy_capture(enemy_location)
-    held_for_this_turn = []
-      held_for_this_turn = 
-        case 
-        when enemy_location[1] > self.location[1]
-        self.moves.delete(:diag_take_left)
-        when enemy_location[1] < self.location[1]
-        self.moves.delete(:diag_take_right)
-        else
-          held_for_this_turn << self.moves.delete(:diag_take_left)
-          held_for_this_turn << self.moves.delete(:diag_take_right)
-        end
-  end
+  def pawn_captures_valid?(spaces, capture_location)
+    location_to_return = nil
+    return capture_location unless pawn_selected?
+    calculated_location_left = [location[0] + moves[:diag_take_left][0], 
+                                 location[1] + moves[:diag_take_left][1]]
 
-  def reset_pawn_moves(moves)
-    self.moves[:diag_take_left]  = moves[0]
-    self.moves[:diag_take_right] = moves[1]
+    calculated_location_right = [location[0] + moves[:diag_take_right][0], 
+                                  location[1] + moves[:diag_take_right][1]]
+    calculated_location_forward= [location[0] + 1, location[1] + 1]
+
+    if calculated_location_left.eql? capture_location
+      location_to_return = spaces[capture_location].piece.type != 'EMPTY' ? 
+        capture_location : nil
+    elsif calculated_location_right.eql? capture_location
+      location_to_return = spaces[capture_location].piece.type != 'EMPTY' ?
+        capture_location : nil
+    else
+#      location_to_return = capture_location
+      location_to_return = spaces[capture_location].piece.type != 'EMPTY' ?
+        nil : capture_location
+    end
   end
 
 end

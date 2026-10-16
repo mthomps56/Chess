@@ -22,7 +22,7 @@ class Piece
     @type     = find_type(fen_char)
     @symbol   = find_symbol(type)
     @moves    = find_moves(type)
-    @iterable = iterable_move?
+#    @iterable = iterable_move?
     @location = location
     @active   = true
   end
@@ -53,16 +53,18 @@ class Piece
 
   # 4 Moves for non-iterative pieces
   def find_legal_moves(spaces, locations)
+    unused_capture_moves = []
     possible_locations = locations.select do |location| 
       x_scope = location[0] <= SCOPE_HIGH && location[0] >= SCOPE_LOW
       y_scope = location[1] <= SCOPE_HIGH && location[1] >= SCOPE_LOW
 
-      # Is a piece already in the space?
       blocked = this_space_occupied?(spaces, location)
       next if blocked && same_piece_owner?(spaces, location)
+      location = pawn_captures_valid?(spaces, location)
       location if x_scope && y_scope
     end
     pawns_first_move?
+    possible_locations = possible_locations.compact
     return possible_locations
   end
 #-------------------------------------------------------------------------------  
@@ -82,12 +84,9 @@ class Piece
     x_scope  = position[0] <= SCOPE_HIGH && position[0] >= SCOPE_LOW
     y_scope  = position[1] <= SCOPE_HIGH && position[1] >= SCOPE_LOW 
     in_scope = x_scope && y_scope 
-#    print "in_scope: #{in_scope}"; puts
     
     if in_scope 
       direction << position unless first_iteration
-#      print " first_iteration: #{first_iteration}"
-#      puts "  direction: #{direction}"
       position = [position[0] + dir[0], position[1] + dir[1]]
       if this_space_occupied?(spaces, position)
         return direction if same_piece_owner?(spaces, position)
@@ -95,10 +94,8 @@ class Piece
         return direction
       end
 
-#      print "position AFTER adding direction: #{position}"; puts;
       take_step(spaces, position, dir, direction, first_iteration = false)
     else
-#      print "direction total: #{direction}"; puts
       return direction
     end
   end
@@ -110,10 +107,7 @@ class Piece
   # Does the iterative piece run in to another piece?
   def this_space_occupied?(spaces, position)
     return if spaces[position].nil?
-    print spaces[position].nil? 
-
     occupied = spaces[position].piece.type != 'EMPTY'
-#    print " occupied: #{occupied}, piece type: #{spaces[position].piece.type}"; puts;
     return occupied
   end
 
@@ -155,7 +149,7 @@ class Piece
   end
 
   def find_moves(type)
-    return MOVES[type] 
+    return MOVES[type].clone
   end
 
   def find_owner(fen_char)

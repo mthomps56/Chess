@@ -23,11 +23,7 @@ class Board
   public
   # Ran inside a block that is called each time a piece is moved.              
   def print_board(current_location = nil)
-    puts "line 26-29 in board.rb"
-    print spaces[[6, 1]].piece.type, " : ", spaces[[6, 2]].piece.type, " "
-    print "same objects: ", spaces[[6, 1]].piece.equal?(spaces[[6, 2]].piece); puts;
-    print "both point to MOVES in memory: ", spaces[[6, 1]].piece.moves.equal?(spaces[[6, 2]].piece.moves)
-    piece_at_locations = []
+#    piece_at_locations = []
     highlight_piece(current_location)                                          
     Y_COL.each do |y|                                                          
       X_ROW.each do |x|                                                        
